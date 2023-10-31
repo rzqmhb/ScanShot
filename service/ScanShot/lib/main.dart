@@ -1,4 +1,4 @@
-import 'dart:js';
+// import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:scanshot/pages/register.dart';
 import 'package:scanshot/pages/profil_page.dart';
