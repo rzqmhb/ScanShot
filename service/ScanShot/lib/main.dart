@@ -7,6 +7,7 @@ import 'package:scanshot/pages/scan.dart';
 import 'package:scanshot/pages/scanPreview.dart';
 import 'package:scanshot/pages/dashboard.dart';
 import 'package:scanshot/pages/result.dart';
+import 'package:scanshot/pages/login_page.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -19,6 +20,7 @@ void main() {
       '/scanPreview': (context) => ScanPreview(),
       '/scan': (context) => Scan(),
       '/register': (context) => RegisterPage(),
+      '/login': (context) => LoginPage(), // Halaman login
     },
   ));
 }
