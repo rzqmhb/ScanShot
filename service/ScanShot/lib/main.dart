@@ -14,8 +14,8 @@ void main() {
     routes: {
       '/': (context) => const DashboardPage(),
       '/result': (context) => const ResultPage(),
-      '/scanPreview' : (context) => const ScanPreview(),
-      '/scan' : (context) => const Scan(),
+      '/scanPreview' : (context) => ScanPreview(),
+      '/scan' : (context) => Scan(),
     },
   ));
 }
