@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:scanshot/register.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(initialRoute: '/', routes: {
+    '/': (context) => RegisterPage(),
+  }));
 }
 
 class MyApp extends StatelessWidget {
