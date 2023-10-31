@@ -1,7 +1,7 @@
 import 'dart:js';
 
 import 'package:flutter/material.dart';
-import 'package:profile/basic_widgets/user_image.dart';
+import 'package:scanshot/basic_widgets/user_image.dart';
 
 class ProfilePage extends StatelessWidget {
   Widget listWithIcon(BuildContext context,
