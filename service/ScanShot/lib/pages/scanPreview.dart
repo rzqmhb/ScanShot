@@ -24,7 +24,7 @@ class ScanPreview extends StatelessWidget {
         elevation: 0,
         leading: InkWell(
           onTap: () {
-            Navigator.pushNamed(context, '/dashboard');
+            Navigator.pushNamed(context, '/');
           },
           child: Icon(
             Icons.arrow_back_ios,

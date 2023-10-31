@@ -19,12 +19,12 @@ class _LoginPageState extends State<LoginPage> {
     String password = _passwordController.text;
     
     // Mengarahkan ke laman home tanpa melakukan pengecekan
-    Navigator.pushReplacementNamed(context, '/home');
+    Navigator.pushReplacementNamed(context, '/');
   }
 
   // Metode untuk melakukan navigasi ke laman home
   void _navigateToHome() {
-    Navigator.pushNamed(context, '/home');
+    Navigator.pushNamed(context, '/register');
   }
 
   @override

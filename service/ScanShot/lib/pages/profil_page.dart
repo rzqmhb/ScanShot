@@ -51,7 +51,12 @@ class ProfilePage extends StatelessWidget {
       backgroundColor: Color.fromRGBO(37, 37, 37, 1),
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(37, 37, 37, 1),
-        leading: Icon(Icons.arrow_back),
+        leading: InkWell(
+          onTap: () {
+            Navigator.pushNamed(context, '/');
+          },
+          child: Icon(Icons.arrow_back)
+        ),
         title: Text('Profil'),
         titleTextStyle:
             TextStyle(fontSize: 16, color: Color.fromRGBO(255, 255, 255, 1)),

@@ -84,7 +84,7 @@ class RegisterPage extends StatelessWidget {
     ),
   );
 
-  Widget buttonRegister() {
+  Widget buttonRegister(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 58),
       child: ElevatedButton(
@@ -94,7 +94,9 @@ class RegisterPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 40),
             fixedSize: Size(800, 35),
             backgroundColor: Color.fromARGB(255, 255, 198, 11)),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/');
+        },
         child: Text(
           'REGISTRASI',
           style: TextStyle(
@@ -128,7 +130,7 @@ class RegisterPage extends StatelessWidget {
                 textField(hintText: 'Kata Sandi'),
                 textField(hintText: 'Konfirmasi Kata Sandi'),
                 checkBox(),
-                buttonRegister(),
+                buttonRegister(context),
                 textLogin,
               ],
             ),
