@@ -13,14 +13,14 @@ void main() {
   runApp(MaterialApp(
     initialRoute: '/',
     routes: {
-      '/dashboard': (context) => const DashboardPage(),
+      '/': (context) => const DashboardPage(),
       '/profile': (context) => ProfilePage(),
       '/help': (context) => HelpPage(),
       '/result': (context) => const ResultPage(),
       '/scanPreview': (context) => ScanPreview(),
       '/scan': (context) => Scan(),
       '/register': (context) => RegisterPage(),
-      '/': (context) => LoginPage(), // Halaman login
+      '/login': (context) => LoginPage(), // Halaman login
     },
   ));
 }
