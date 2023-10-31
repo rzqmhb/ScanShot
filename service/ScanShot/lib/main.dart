@@ -15,7 +15,7 @@ void main() {
     theme: ThemeData(
       scaffoldBackgroundColor: const Color(0xFF252525),
     ),
-    initialRoute: '/',
+    initialRoute: '/login',
     routes: {
       '/': (context) => const DashboardPage(),
       '/profile': (context) => ProfilePage(),
