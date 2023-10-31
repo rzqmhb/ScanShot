@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:scanshot/pages/copy_form.dart';
 import 'package:scanshot/pages/dashboard.dart';
 import 'package:scanshot/pages/result.dart';
 
@@ -13,7 +12,6 @@ void main() {
     routes: {
       '/': (context) => const DashboardPage(),
       '/result': (context) => const ResultPage(),
-      '/copy': (context) => const CopyFormPage(),
     },
   ));
 }
