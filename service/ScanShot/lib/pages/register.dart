@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scanshot/Widget/checkBox.dart';
+import 'package:scanshot/widget/checkBox.dart';
 
 class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
