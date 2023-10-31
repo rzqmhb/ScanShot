@@ -1,8 +1,8 @@
 import 'dart:js';
 
 import 'package:flutter/material.dart';
-import 'package:profile/basic_widgets/logo_image.dart';
-import 'package:profile/basic_widgets/user_image.dart';
+import 'package:scanshot/basic_widgets/logo_image.dart';
+import 'package:scanshot/basic_widgets/user_image.dart';
 
 class HelpPage extends StatelessWidget {
   Widget listWithIcon({required String hintText}) {
