@@ -15,7 +15,7 @@ class TitleWidget extends StatelessWidget {
               width: 271,
               height: 59,
               decoration: const BoxDecoration(
-                color: Color(0xFFFFC60B),
+                color: Color(0xFF252525),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(8.0),
                   topRight: Radius.circular(8.0),
@@ -28,7 +28,7 @@ class TitleWidget extends StatelessWidget {
                   'Beranda',
                   style: TextStyle(
                     fontFamily: 'Inter',
-                    color: Color(0xFF252525),
+                    color: Color(0xFFFFC60B),
                     fontSize: 28,
                     fontWeight: FontWeight.w700,
                   ),

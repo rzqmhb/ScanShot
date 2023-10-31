@@ -1,4 +1,4 @@
-import 'dart:js';
+// import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:scanshot/pages/register.dart';
 import 'package:scanshot/pages/profil_page.dart';
@@ -11,6 +11,10 @@ import 'package:scanshot/pages/login_page.dart';
 
 void main() {
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      scaffoldBackgroundColor: const Color(0xFF252525),
+    ),
     initialRoute: '/',
     routes: {
       '/': (context) => const DashboardPage(),
