@@ -11,7 +11,11 @@ import 'package:scanshot/pages/login_page.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/',
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      scaffoldBackgroundColor: const Color(0xFF252525),
+    ),
+    initialRoute: '/login',
     routes: {
       '/': (context) => const DashboardPage(),
       '/profile': (context) => ProfilePage(),
