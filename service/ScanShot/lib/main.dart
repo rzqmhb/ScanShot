@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:scanshot/pages/scan.dart';
 import 'package:scanshot/pages/scanPreview.dart';
+import 'package:scanshot/pages/copy_form.dart';
+import 'package:scanshot/pages/dashboard.dart';
+import 'package:scanshot/pages/result.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/scanPreview',
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      scaffoldBackgroundColor: const Color(0xFF252525),
+    ),
+    initialRoute: '/',
     routes: {
-      '/scanPreview' : (context) => ScanPreview(),
-      '/scan' : (context) => Scan(),
+      '/': (context) => const DashboardPage(),
+      '/result': (context) => const ResultPage(),
+      '/copy': (context) => const CopyFormPage(),
+      '/scanPreview' : (context) => const ScanPreview(),
+      '/scan' : (context) => const Scan(),
     },
   ));
 }
