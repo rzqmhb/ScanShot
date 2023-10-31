@@ -16,8 +16,8 @@ void main() {
       '/': (context) => const DashboardPage(),
       '/result': (context) => const ResultPage(),
       '/copy': (context) => const CopyFormPage(),
-      '/scanPreview' : (context) => const ScanPreview(),
-      '/scan' : (context) => const Scan(),
+      '/scanPreview' : (context) => ScanPreview(),
+      '/scan' : (context) => Scan(),
     },
   ));
 }
