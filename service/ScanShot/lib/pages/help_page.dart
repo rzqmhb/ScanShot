@@ -2,7 +2,6 @@ import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:scanshot/basic_widgets/logo_image.dart';
-import 'package:scanshot/basic_widgets/user_image.dart';
 
 class HelpPage extends StatelessWidget {
   Widget listWithIcon({required String hintText}) {
@@ -19,7 +18,7 @@ class HelpPage extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
-            Navigator.pushNamed(context as BuildContext, '/');
+            Navigator.pushNamed(context as BuildContext, '/profile');
           },
           child: ListTile(
             title: Text(
@@ -58,7 +57,7 @@ class HelpPage extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushNamed(context, '/');
+            Navigator.pushNamed(context, '/profile');
           },
         ),
         title: Column(
