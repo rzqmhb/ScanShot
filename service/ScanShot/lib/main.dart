@@ -1,5 +1,6 @@
 import 'dart:js';
 import 'package:flutter/material.dart';
+import 'package:scanshot/register.dart';
 import 'package:profile/pages/profil_page.dart';
 import 'package:profile/pages/help_page.dart';
 import 'package:scanshot/pages/scan.dart';
@@ -17,6 +18,7 @@ void main() {
       '/result': (context) => const ResultPage(),
       '/scanPreview' : (context) => const ScanPreview(),
       '/scan' : (context) => const Scan(),
+      '/register': (context) => RegisterPage(),
     },
   ));
 }
