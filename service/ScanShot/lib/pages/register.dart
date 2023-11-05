@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:scanshot/widget/checkBox.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
 
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   Widget icon = Image.asset(
     'assets/images/registerIcon.png',
     width: 200,
@@ -84,6 +90,30 @@ class RegisterPage extends StatelessWidget {
     ),
   );
 
+  bool isLoading = false;
+  Widget loading() {
+    return Stack(
+      children: [
+        RegisterPage(),
+        Positioned.fill(
+            child: Center(
+          child: Container(
+              padding: EdgeInsets.all(8.0),
+              width: 150,
+              height: 120,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+              ),
+              child: LoadingAnimationWidget.staggeredDotsWave(
+                  color: Color.fromARGB(255, 255, 198, 11), size: 100)),
+        )),
+      ],
+      // child:
+    );
+  }
+
   Widget buttonRegister(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 58),
@@ -94,7 +124,14 @@ class RegisterPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 40),
             fixedSize: Size(800, 35),
             backgroundColor: Color.fromARGB(255, 255, 198, 11)),
-        onPressed: () {
+        onPressed: () async {
+          setState(() {
+            isLoading = true;
+          });
+          await Future.delayed(Duration(seconds: 2));
+          setState(() {
+            isLoading = false;
+          });
           Navigator.pushNamed(context, '/');
         },
         child: Text(
@@ -108,35 +145,52 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter layout demo',
-      home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 37, 37, 37),
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 37, 37, 37),
-          title: const Text(
-            'Daftar Akun',
-          ),
-          centerTitle: true,
-        ),
-        body: ListView(
-          children: [
-            Column(
-              // mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                icon,
-                textField(hintText: 'Nama Pengguna'),
-                textField(hintText: 'Surel'),
-                textField(hintText: 'Kata Sandi'),
-                textField(hintText: 'Konfirmasi Kata Sandi'),
-                checkBox(),
-                buttonRegister(context),
-                textLogin,
-              ],
+    return isLoading
+        ? loading()
+        : MaterialApp(
+            title: 'Flutter layout demo',
+            home: Scaffold(
+              backgroundColor: Color.fromARGB(255, 37, 37, 37),
+              appBar: AppBar(
+                backgroundColor: Color.fromARGB(255, 37, 37, 37),
+                title: const Text(
+                  'Daftar Akun',
+                ),
+                centerTitle: true,
+              ),
+              body: ListView(
+                children: [
+                  Column(
+                    // mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      icon,
+                      textField(hintText: 'Nama Pengguna'),
+                      textField(hintText: 'Surel'),
+                      textField(hintText: 'Kata Sandi'),
+                      textField(hintText: 'Konfirmasi Kata Sandi'),
+                      checkBox(),
+                      buttonRegister(context),
+                      textLogin,
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 }
+
+// class loading extends StatelessWidget {
+//   const loading({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         body: Center(
+//             child:
+//                 LoadingAnimationWidget.waveDots(color: Colors.blue, size: 100)),
+//       ),
+//     );
+//   }
+// }
