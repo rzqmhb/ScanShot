@@ -1,10 +1,11 @@
-import 'dart:js';
+// import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:scanshot/basic_widgets/logo_image.dart';
 
 class HelpPage extends StatelessWidget {
-  Widget listWithIcon({required String hintText}) {
+  Widget listWithIcon(
+      {required BuildContext context, required String hintText}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 40, vertical: 0),
       child: Container(
@@ -18,7 +19,7 @@ class HelpPage extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () {
-            Navigator.pushNamed(context as BuildContext, '/profile');
+            Navigator.pushNamed(context, '/profile');
           },
           child: ListTile(
             title: Text(
@@ -86,9 +87,10 @@ class HelpPage extends StatelessWidget {
             SizedBox(height: 30),
             LogoImage(),
             SizedBox(height: 60),
-            listWithIcon(hintText: 'Pusat Bantuan'),
-            listWithIcon(hintText: 'Kontak Kami'),
-            listWithIcon(hintText: 'Syarat dan Kebijakan Privasi'),
+            listWithIcon(context: context, hintText: 'Pusat Bantuan'),
+            listWithIcon(context: context, hintText: 'Kontak Kami'),
+            listWithIcon(
+                context: context, hintText: 'Syarat dan Kebijakan Privasi'),
             SizedBox(height: 10),
             copyRight()
           ],
