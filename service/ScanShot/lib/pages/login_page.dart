@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   void _login() {
     String username = _usernameController.text;
     String password = _passwordController.text;
-    
+
     // Mengarahkan ke laman home tanpa melakukan pengecekan
     Navigator.pushReplacementNamed(context, '/');
   }
@@ -32,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Color(0xFF252525),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text('Masuk'),
         backgroundColor: Color(0xFF252525),
@@ -51,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
 
               // Memberi jarak
               SizedBox(height: 20),
-              
+
               // Menambahkan text dengan style berikut
               Text(
                 'Silakan masukkan nama pengguna dan kata sandi Anda',
@@ -65,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
 
               // Memberi jarak
               SizedBox(height: 20),
-              
+
               // Kolom Nama Pengguna dengan style berikut
               TextField(
                 controller: _usernameController,
@@ -148,7 +149,10 @@ class _LoginPageState extends State<LoginPage> {
               // Menambahkan text dengan style berikut
               Text(
                 'Belum punya akun?',
-                style: TextStyle(fontSize: 16, color: Colors.white,),
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 10),

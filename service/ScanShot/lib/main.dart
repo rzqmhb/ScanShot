@@ -1,4 +1,5 @@
 // import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:scanshot/pages/register.dart';
 import 'package:scanshot/pages/profil_page.dart';
@@ -8,6 +9,7 @@ import 'package:scanshot/pages/scanPreview.dart';
 import 'package:scanshot/pages/dashboard.dart';
 import 'package:scanshot/pages/result.dart';
 import 'package:scanshot/pages/login_page.dart';
+import 'package:scanshot/pages/splash_screen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -15,7 +17,7 @@ void main() {
     theme: ThemeData(
       scaffoldBackgroundColor: const Color(0xFF252525),
     ),
-    initialRoute: '/login',
+    initialRoute: '/splash',
     routes: {
       '/': (context) => const DashboardPage(),
       '/profile': (context) => ProfilePage(),
@@ -25,6 +27,7 @@ void main() {
       '/scan': (context) => Scan(),
       '/register': (context) => RegisterPage(),
       '/login': (context) => LoginPage(), // Halaman login
+      '/splash': (context) => const Splash(),
     },
   ));
 }
