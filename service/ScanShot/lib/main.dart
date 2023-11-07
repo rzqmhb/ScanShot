@@ -11,7 +11,7 @@ import 'package:scanshot/pages/login_page.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/',
+    initialRoute: '/login',
     routes: {
       '/': (context) => const DashboardPage(),
       '/profile': (context) => ProfilePage(),
