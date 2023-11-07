@@ -58,7 +58,7 @@ class HelpPage extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushNamed(context, '/profile');
+            Navigator.of(context).pop();
           },
         ),
         title: Column(
