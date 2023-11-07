@@ -74,7 +74,8 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget textLogin = Padding(
+  Widget textLogin(BuildContext context) {
+  return Padding(
     padding: EdgeInsets.only(top: 10),
     child: Column(
       children: [
@@ -82,13 +83,19 @@ class _RegisterPageState extends State<RegisterPage> {
           'Sudah punya akun?',
           style: TextStyle(color: Colors.white),
         ),
-        Text(
-          'Login disini',
-          style: TextStyle(color: Color.fromARGB(255, 255, 198, 11)),
+        InkWell(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            'Login disini',
+            style: TextStyle(color: Color.fromARGB(255, 255, 198, 11)),
+          ),
         )
       ],
     ),
   );
+  }
 
   bool isLoading = false;
   Widget loading() {
@@ -170,7 +177,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       textField(hintText: 'Konfirmasi Kata Sandi'),
                       checkBox(),
                       buttonRegister(context),
-                      textLogin,
+                      textLogin(context),
                     ],
                   ),
                 ],
