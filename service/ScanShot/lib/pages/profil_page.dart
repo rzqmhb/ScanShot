@@ -1,4 +1,4 @@
-import 'dart:js';
+// import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:scanshot/basic_widgets/user_image.dart';
@@ -51,7 +51,11 @@ class ProfilePage extends StatelessWidget {
       backgroundColor: Color.fromRGBO(37, 37, 37, 1),
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(37, 37, 37, 1),
-        leading: Icon(Icons.arrow_back),
+        leading: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(Icons.arrow_back)),
         title: Text('Profil'),
         titleTextStyle:
             TextStyle(fontSize: 16, color: Color.fromRGBO(255, 255, 255, 1)),

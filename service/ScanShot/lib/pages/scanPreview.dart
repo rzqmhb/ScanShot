@@ -24,7 +24,7 @@ class ScanPreview extends StatelessWidget {
         elevation: 0,
         leading: InkWell(
           onTap: () {
-            Navigator.pushNamed(context, '/dashboard');
+            Navigator.of(context).pop();
           },
           child: Icon(
             Icons.arrow_back_ios,
@@ -83,38 +83,39 @@ class ScanPreview extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Container(
-                padding: EdgeInsets.all(0),
-                height: 430,
-                width: 390,
-                color: Colors.transparent,
-                child: ClipRRect(
-                  // borderRadius: BorderRadius.all(Radius.circular(15)),
-                  borderRadius: BorderRadius.circular(15),
-                  child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                      crossAxisSpacing: 7,
-                      mainAxisSpacing: 7,
-                  ),
-                    // gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    //   maxCrossAxisExtent: 200,
-                    //   childAspectRatio: 1,
-                    //   crossAxisSpacing: 1.2,
-                    //   mainAxisSpacing: 1.2),
-                    padding: EdgeInsets.all(0),
-                    itemCount: 6,
-                    itemBuilder: ((context, index) {
-                      final image = images[index];
-                      return Image(
-                          image: NetworkImage(image),
-                          fit: BoxFit.cover,
-                          height: 90.0,
-                          width: 150.0,
-                        );
-                    }),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  padding: EdgeInsets.all(0),
+                  width: 390,
+                  color: Colors.transparent,
+                  child: ClipRRect(
+                    // borderRadius: BorderRadius.all(Radius.circular(15)),
+                    borderRadius: BorderRadius.circular(15),
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                        crossAxisSpacing: 7,
+                        mainAxisSpacing: 7,
+                    ),
+                      // gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      //   maxCrossAxisExtent: 200,
+                      //   childAspectRatio: 1,
+                      //   crossAxisSpacing: 1.2,
+                      //   mainAxisSpacing: 1.2),
+                      padding: EdgeInsets.all(0),
+                      itemCount: 6,
+                      itemBuilder: ((context, index) {
+                        final image = images[index];
+                        return Image(
+                            image: NetworkImage(image),
+                            fit: BoxFit.cover,
+                            height: 90.0,
+                            width: 150.0,
+                          );
+                      }),
+                    ),
                   ),
                 ),
               ),

@@ -28,10 +28,15 @@ class FooterWidget extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Padding(
                       padding: const EdgeInsets.only(right: 21),
-                      child: Image.asset(
-                        'assets/go_to_profile_button.png',
-                        width: 192,
-                        height: 51,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/profile');
+                        },
+                        child: Image.asset(
+                          'assets/go_to_profile_button.png',
+                          width: 192,
+                          height: 51,
+                        ),
                       ),
                     ),
                   ),
@@ -45,7 +50,12 @@ class FooterWidget extends StatelessWidget {
         Positioned(
           left: 26,
           bottom: 19,
-          child: Image.asset('assets/scan_button.png', width: 100, height: 100),
+          child: InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, '/scanPreview');
+            },
+            child: Image.asset('assets/scan_button.png', width: 100, height: 100)
+          ),
         ),
       ],
     );
