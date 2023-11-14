@@ -47,20 +47,6 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget logout() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 0),
-      child: Column(
-        children: <Widget>[
-          Text(
-            'LogOut',
-            style: TextStyle(fontSize: 14, color: Colors.red),
-          )
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +55,7 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: Color.fromRGBO(37, 37, 37, 1),
         leading: InkWell(
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.pushNamed(context as BuildContext, '/');
             },
             child: Icon(
               Icons.arrow_back,
