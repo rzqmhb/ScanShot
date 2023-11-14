@@ -1,11 +1,33 @@
 class KartuKeluarga {
-  int id;
-  String gambar;
-  String teks;
+  int? noKK;
+  int? noK;
+  String? kepalaKeluarga;
+  String? alamat;
+  int? rt;
+  int? rw;
+  int? kodePos;
+  String? desaKelurahan;
+  String? kecamatan;
+  String? kabupatenKota;
+  String? provinsi;
+  DateTime? tanggalDikeluarkan;
+  String? kepalaDinas;
+  int? nipKepalaDinas;
 
   KartuKeluarga({
-    required this.id,
-    required this.gambar,
-    required this.teks,
+    this.noKK,
+    this.noK,
+    this.kepalaKeluarga,
+    this.alamat,
+    this.rt,
+    this.rw,
+    this.kodePos,
+    this.desaKelurahan,
+    this.kecamatan,
+    this.kabupatenKota,
+    this.provinsi,
+    this.tanggalDikeluarkan,
+    this.kepalaDinas,
+    this.nipKepalaDinas,
   });
 }
