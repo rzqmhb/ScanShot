@@ -1,7 +1,7 @@
 // import 'dart:js';
 
 import 'package:flutter/material.dart';
-import 'package:scanshot/basic_widgets/user_image.dart';
+import 'package:scanshot/widget/user_image.dart';
 import 'package:scanshot/widget/logout.dart';
 
 class ProfilePage extends StatelessWidget {

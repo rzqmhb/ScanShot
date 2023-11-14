@@ -1,10 +1,6 @@
 import 'dart:js';
 
 import 'package:flutter/material.dart';
-import 'package:multiselect_nested/multiselect_nested.dart';
-import 'package:multiselect_nested/models/multiselect_nested_item.dart';
-import 'package:multiselect_nested/models/multiselect_nested_controller.dart';
-import 'package:scanshot/widget/logout.dart';
 import 'package:scanshot/widget/multiSelect.dart';
 
 class HelpPage extends StatelessWidget {
