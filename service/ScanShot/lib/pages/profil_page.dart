@@ -2,26 +2,28 @@ import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:scanshot/basic_widgets/user_image.dart';
+import 'package:scanshot/widget/logout.dart';
 
 class ProfilePage extends StatelessWidget {
   Widget listWithIcon(BuildContext context,
       {required String hintText,
       required IconData icon,
-      required IconData trailingIcon}) {
+      required IconData trailingIcon,
+      required String route}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 40, vertical: 0),
       child: Container(
         decoration: BoxDecoration(
-          color: Color.fromRGBO(56, 56, 56, 1),
+          color: Color.fromRGBO(73, 73, 73, 1),
           border: Border.all(
-            color: Color.fromARGB(255, 255, 198, 11),
+            color: Color.fromRGBO(110, 110, 110, 1),
             width: 1.0,
           ),
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
         child: InkWell(
           onTap: () {
-            Navigator.pushNamed(context, '/help');
+            Navigator.pushNamed(context, route);
           },
           child: ListTile(
             leading: Icon(
@@ -45,6 +47,20 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
+  Widget logout() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 0),
+      child: Column(
+        children: <Widget>[
+          Text(
+            'LogOut',
+            style: TextStyle(fontSize: 14, color: Colors.red),
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +71,10 @@ class ProfilePage extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, '/');
             },
-            child: Icon(Icons.arrow_back)),
+            child: Icon(
+              Icons.arrow_back,
+              color: Color.fromRGBO(255, 255, 255, 1),
+            )),
         title: Text('Profil'),
         titleTextStyle:
             TextStyle(fontSize: 16, color: Color.fromRGBO(255, 255, 255, 1)),
@@ -77,24 +96,30 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 40),
             listWithIcon(context,
-                hintText: 'Nama Pengguna',
-                icon: Icons.perm_identity,
-                trailingIcon: Icons.arrow_right),
+                hintText: 'Akun',
+                icon: Icons.account_circle,
+                trailingIcon: Icons.arrow_right,
+                route: '/#'),
             listWithIcon(context,
-                hintText: 'Alamat Surel',
-                icon: Icons.email_outlined,
-                trailingIcon: Icons.arrow_right),
+                hintText: 'Pengaturan',
+                icon: Icons.settings,
+                trailingIcon: Icons.arrow_right,
+                route: '/#'),
             listWithIcon(context,
-                hintText: 'Kata Sandi',
-                icon: Icons.lock_outlined,
-                trailingIcon: Icons.arrow_right),
+                hintText: 'Penyimpanan Data',
+                icon: Icons.storage,
+                trailingIcon: Icons.arrow_right,
+                route: '/#'),
+            SizedBox(height: 40),
             listWithIcon(context,
                 hintText: 'Bantuan',
                 icon: Icons.help_outline,
-                trailingIcon: Icons.arrow_right)
+                trailingIcon: Icons.arrow_right,
+                route: '/help'),
           ],
         ),
       ),
+      bottomNavigationBar: const Logout(),
     );
   }
 }
