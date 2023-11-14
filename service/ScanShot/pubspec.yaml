@@ -30,7 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-    
+  flutter_form_builder: ^9.1.1
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -38,6 +39,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   image_gallery_saver: ^2.0.3
   camera: ^0.10.5+5
+  auto_size_text: ^3.0.0
+  loading_animation_widget: ^1.2.0+4
+  page_transition: "^2.1.0"
   multiselect_nested: ^1.1.0
 
 dev_dependencies:

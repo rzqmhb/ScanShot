@@ -1,4 +1,4 @@
-import 'dart:js';
+// import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:scanshot/basic_widgets/user_image.dart';
@@ -69,7 +69,7 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: Color.fromRGBO(37, 37, 37, 1),
         leading: InkWell(
             onTap: () {
-              Navigator.pushNamed(context, '/');
+              Navigator.of(context).pop();
             },
             child: Icon(
               Icons.arrow_back,
