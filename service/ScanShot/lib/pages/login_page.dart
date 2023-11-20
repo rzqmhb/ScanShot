@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:scanshot/basic_widgets/image_widget.dart';
+import 'package:scanshot/widget/image_widget.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -11,7 +10,7 @@ class LoginPage extends StatefulWidget {
 }
 
 // Mengatur input dari input username dan password
-class _LoginPageState extends State < LoginPage > {
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -28,6 +27,7 @@ class _LoginPageState extends State < LoginPage > {
   void _navigateToHome() {
     Navigator.pushNamed(context, '/register');
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +47,6 @@ class _LoginPageState extends State < LoginPage > {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 // Memberi jarak
                 SizedBox(height: 10),
 
@@ -151,7 +150,6 @@ class _LoginPageState extends State < LoginPage > {
 
                 // Memberi jarak
                 SizedBox(height: 20),
-
 
                 Text(
                   'Belum punya akun?',

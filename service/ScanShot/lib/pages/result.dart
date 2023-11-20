@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:scanshot/models/kartu_keluarga.dart';
+import 'package:scanshot/models/keluarga_kartu.dart';
 import 'package:scanshot/widget/footer.dart';
 
 class ResultPage extends StatelessWidget {
@@ -13,7 +13,7 @@ class ResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final kk = ModalRoute.of(context)!.settings.arguments as KartuKeluarga;
+    final kk = ModalRoute.of(context)!.settings.arguments as KeluargaKartu;
 
     return Scaffold(
       body: Stack(

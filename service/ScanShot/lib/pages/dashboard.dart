@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scanshot/models/kartu_keluarga.dart';
+import 'package:scanshot/models/keluarga_kartu.dart';
 import 'package:scanshot/widget/footer.dart';
 import 'package:scanshot/widget/title.dart';
 
@@ -11,8 +11,8 @@ class DashboardPage extends StatefulWidget {
 }
 
 class DashboardPageState extends State<DashboardPage> {
-  final List<KartuKeluarga> kk = [
-    KartuKeluarga(
+  final List<KeluargaKartu> kk = [
+    KeluargaKartu(
       id: 1,
       gambar: 'assets/sample_kk.jpg',
       teks: '''Keluarga Keluarga
@@ -30,7 +30,7 @@ class DashboardPageState extends State<DashboardPage> {
       ***
       ***''',
     ),
-    KartuKeluarga(
+    KeluargaKartu(
       id: 2,
       gambar: 'assets/sample_kk.jpg',
       teks: '''Keluarga Keluarga
@@ -48,7 +48,7 @@ class DashboardPageState extends State<DashboardPage> {
       ***
       ***''',
     ),
-    KartuKeluarga(
+    KeluargaKartu(
       id: 3,
       gambar: 'assets/sample_kk.jpg',
       teks: '''Keluarga Keluarga
