@@ -16,16 +16,18 @@ class LoadingWidget extends StatelessWidget {
         Positioned.fill(
             child: Center(
           child: Container(
-              padding: EdgeInsets.all(8.0),
-              width: 150,
-              height: 120,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-              ),
-              child: LoadingAnimationWidget.staggeredDotsWave(
-                  color: Color.fromARGB(255, 255, 198, 11), size: 100)),
+            padding: EdgeInsets.all(8.0),
+            width: 90,
+            height: 90,
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+            ),
+            child: Center(
+                child: LoadingAnimationWidget.discreteCircle(
+                    color: Color.fromARGB(255, 255, 198, 11), size: 70)),
+          ),
         )),
       ],
       // child:
