@@ -1,39 +1,8 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:scanshot/widget/multiSelect.dart';
 
 class HelpPage extends StatelessWidget {
   HelpPage({Key? key}) : super(key: key);
-  Widget listFaq({required String hintText}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Color.fromRGBO(73, 73, 73, 1),
-          border: Border.all(
-            color: Color.fromRGBO(110, 110, 110, 1),
-            width: 1.0,
-          ),
-          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-        ),
-        child: InkWell(
-          onTap: () {
-            Navigator.pushNamed(context as BuildContext, '/profile');
-          },
-          child: ListTile(
-            title: Text(
-              hintText,
-              style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
   // List<MultiSelectNestedItem> options = [
   //   MultiSelectNestedItem(
