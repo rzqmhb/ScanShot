@@ -93,6 +93,30 @@ class DashboardPageState extends State<DashboardPage> {
     showDialog(context: context, builder: (context) => dialog);
   }
 
+  void showConfirmationDelete(int id) {
+    AlertDialog dialog = AlertDialog(
+      title: const Text("Konfirmasi Hapus"),
+      content: const Text('Hapus Riwayat ?'),
+      actions: [
+        TextButton(
+          child: const Text("Ya"),
+          onPressed: () {
+            removeKartuKeluarga(id);
+            Navigator.pop(context);
+          },
+        ),
+        TextButton(
+          child: const Text("Tidak"),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ],
+    );
+
+    showDialog(context: context, builder: (context) => dialog);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,7 +201,7 @@ class DashboardPageState extends State<DashboardPage> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  removeKartuKeluarga(kartuKeluarga.id);
+                                  showConfirmationDelete(kartuKeluarga.id);
                                 },
                                 child: Image.asset(
                                   'assets/delete_icon.png',
