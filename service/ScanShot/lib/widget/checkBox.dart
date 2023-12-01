@@ -12,7 +12,7 @@ class _CheckBoxState extends State<CheckBoxWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Checkbox(
+    Widget checkBox = Checkbox(
       checkColor: Colors.black,
       activeColor: Colors.white,
       side: BorderSide(color: Color.fromARGB(255, 255, 198, 11)),
@@ -22,6 +22,31 @@ class _CheckBoxState extends State<CheckBoxWidget> {
           isChecked = value!;
         });
       },
+    );
+
+    return Padding(
+      padding: EdgeInsets.only(top: 10, bottom: 7),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            child: checkBox,
+          ),
+          Text(
+            'Saya telah menyetujui ',
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.w400, fontSize: 11),
+          ),
+          Text(
+            'syarat & ketentuan',
+            style: TextStyle(
+                color: Colors.blue[200],
+                decoration: TextDecoration.underline,
+                fontWeight: FontWeight.w400,
+                fontSize: 11),
+          )
+        ],
+      ),
     );
   }
 }
