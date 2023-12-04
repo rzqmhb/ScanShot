@@ -33,6 +33,7 @@ class _LoginPageState extends State < LoginPage > {
     return Scaffold(
       backgroundColor: Color(0xFF252525),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text('Masuk'),
         backgroundColor: Color(0xFF252525),
