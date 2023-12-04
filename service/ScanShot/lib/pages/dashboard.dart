@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scanshot/models/kartu_keluarga.dart';
+import 'package:scanshot/models/keluarga_kartu.dart';
 import 'package:scanshot/widget/footer.dart';
 import 'package:scanshot/widget/title.dart';
 
@@ -11,8 +11,10 @@ class DashboardPage extends StatefulWidget {
 }
 
 class DashboardPageState extends State<DashboardPage> {
-  final List<KartuKeluarga> kk = [
-    KartuKeluarga(
+  final List<int> validId = [1, 2];
+
+  final List<KeluargaKartu> kk = [
+    KeluargaKartu(
       id: 1,
       gambar: 'assets/sample_kk.jpg',
       teks: '''Keluarga Keluarga
@@ -30,7 +32,7 @@ class DashboardPageState extends State<DashboardPage> {
       ***
       ***''',
     ),
-    KartuKeluarga(
+    KeluargaKartu(
       id: 2,
       gambar: 'assets/sample_kk.jpg',
       teks: '''Keluarga Keluarga
@@ -48,7 +50,7 @@ class DashboardPageState extends State<DashboardPage> {
       ***
       ***''',
     ),
-    KartuKeluarga(
+    KeluargaKartu(
       id: 3,
       gambar: 'assets/sample_kk.jpg',
       teks: '''Keluarga Keluarga
@@ -74,6 +76,47 @@ class DashboardPageState extends State<DashboardPage> {
     });
   }
 
+  void showInvalidMessage() {
+    AlertDialog dialog = AlertDialog(
+      title: const Text('Kartu Keluarga Tidak Dikenali'),
+      content: const Text(
+          'Nomor Kartu Keluarga tidak dikenali, harap memindai Kartu Keluarga yang asli untuk memperoleh teks.'),
+      actions: <Widget>[
+        TextButton(
+          child: const Text('Tutup'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+    showDialog(context: context, builder: (context) => dialog);
+  }
+
+  void showConfirmationDelete(int id) {
+    AlertDialog dialog = AlertDialog(
+      title: const Text("Konfirmasi Hapus"),
+      content: const Text('Hapus Riwayat ?'),
+      actions: [
+        TextButton(
+          child: const Text("Ya"),
+          onPressed: () {
+            removeKartuKeluarga(id);
+            Navigator.pop(context);
+          },
+        ),
+        TextButton(
+          child: const Text("Tidak"),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ],
+    );
+
+    showDialog(context: context, builder: (context) => dialog);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,8 +136,10 @@ class DashboardPageState extends State<DashboardPage> {
                 final kartuKeluarga = kk[index];
                 return InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/result',
-                        arguments: kartuKeluarga);
+                    if (validId.contains(kartuKeluarga.id)) {
+                      Navigator.pushNamed(context, '/result',
+                          arguments: kartuKeluarga);
+                    }
                   },
                   child: Container(
                     height: 100,
@@ -133,19 +178,30 @@ class DashboardPageState extends State<DashboardPage> {
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   alignment: Alignment.center,
-                                  child: SelectableText(
-                                    kartuKeluarga.teks,
-                                    style: const TextStyle(
-                                      color: Color(0xFF252525),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
+                                  child: validId.contains(kartuKeluarga.id)
+                                      ? SelectableText(
+                                          kartuKeluarga.teks,
+                                          style: const TextStyle(
+                                            color: Color(0xFF252525),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        )
+                                      : InkWell(
+                                          onTap: () {
+                                            showInvalidMessage();
+                                          },
+                                          child: Image.asset(
+                                            'assets/error_icon.png',
+                                            width: 36,
+                                            height: 36,
+                                          ),
+                                        ),
                                 ),
                               ),
                               InkWell(
                                 onTap: () {
-                                  removeKartuKeluarga(kartuKeluarga.id);
+                                  showConfirmationDelete(kartuKeluarga.id);
                                 },
                                 child: Image.asset(
                                   'assets/delete_icon.png',
