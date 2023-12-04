@@ -13,7 +13,8 @@ class Scan extends StatelessWidget {
         elevation: 0,
         leading: InkWell(
           onTap: () {
-            Navigator.pushNamed(context, '/scanPreview');
+            // Navigator.pushNamed(context, '/scanPreview');
+            Navigator.of(context).pop();
           },
           child: Icon(
             Icons.arrow_back_ios,
