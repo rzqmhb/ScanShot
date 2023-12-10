@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scanshot/widget/image_widget.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -19,24 +20,38 @@ class _LoginPageState extends State<LoginPage> {
     String username = _usernameController.text;
     String password = _passwordController.text;
 
-    // Mengarahkan ke laman home tanpa melakukan pengecekan
-    Navigator.pushReplacementNamed(context, '/');
+    try {
+      FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: username,
+        password: password
+      ).then((value) {
+        Navigator.pushReplacementNamed(context, '/');
+      });
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-login-credentials') {
+        debugPrint('Username or password invalid');
+      } else if (e.code == 'wrong-password') {
+        debugPrint('Wrong password provided for that user.');
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   // Metode untuk melakukan navigasi ke laman home
-  void _navigateToHome() {
+  void _navigateToRegister() {
     Navigator.pushNamed(context, '/register');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF252525),
+      backgroundColor: const Color(0xFF252525),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: Text('Masuk'),
-        backgroundColor: Color(0xFF252525),
+        title: const Text('Masuk'),
+        backgroundColor: const Color(0xFF252525),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -48,16 +63,16 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Memberi jarak
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
 
                 // Memanggil MyImageWidget() pada image_widget.dart
-                MyImageWidget(),
+                const MyImageWidget(),
 
                 // Memberi jarak
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 // Menambahkan text dengan style berikut
-                Text(
+                const Text(
                   'Silakan masukkan nama pengguna dan kata sandi Anda',
                   style: TextStyle(
                     fontSize: 16,
@@ -68,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 // Memberi jarak
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 // Mengambil input pada kolom Username
                 FormBuilderTextField(
@@ -76,21 +91,21 @@ class _LoginPageState extends State<LoginPage> {
                   controller: _usernameController,
                   decoration: InputDecoration(
                     labelText: 'Nama Pengguna',
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: const TextStyle(color: Colors.white),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Color(0xFFFFC60B)),
+                      borderSide: const BorderSide(color: Color(0xFFFFC60B)),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Color(0xFFFFC60B)),
+                      borderSide: const BorderSide(color: Color(0xFFFFC60B)),
                     ),
                   ),
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                 ),
 
                 // Memberi jarak
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 // Mengambil input pada kolom password
                 FormBuilderTextField(
@@ -98,27 +113,27 @@ class _LoginPageState extends State<LoginPage> {
                   controller: _passwordController,
                   decoration: InputDecoration(
                     labelText: 'Kata Sandi',
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: const TextStyle(color: Colors.white),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Color(0xFFFFC60B)),
+                      borderSide: const BorderSide(color: Color(0xFFFFC60B)),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Color(0xFFFFC60B)),
+                      borderSide: const BorderSide(color: Color(0xFFFFC60B)),
                     ),
                   ),
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   obscureText: true,
                 ),
 
                 // memberi jarak
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
 
                 // Membuat teks 'Lupa sandi' agar dapat menuju laman lain
                 InkWell(
-                  onTap: _navigateToHome,
-                  child: Row(
+                  onTap: _navigateToRegister,
+                  child: const Row(
                     children: [
                       Text(
                         'Lupa Sandi',
@@ -133,37 +148,37 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 // Memberi jarak
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 // Menambahkan button login dan mengarahkan ke laman berikutnya
                 ElevatedButton(
                   onPressed: _login,
-                  child: Text(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFFFC60B),
+                  ),
+                  child: const Text(
                     'Masuk',
                     style: TextStyle(color: Color(0xFF252525)),
                     textAlign: TextAlign.center,
                   ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Color(0xFFFFC60B),
-                  ),
                 ),
 
                 // Memberi jarak
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
-                Text(
+                const Text(
                   'Belum punya akun?',
                   style: TextStyle(fontSize: 16, color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
 
                 // Memberi jarak
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
 
                 // Membuat teks 'Daftar disinii' agar dapat menuju laman lain
                 InkWell(
-                  onTap: _navigateToHome,
-                  child: Text(
+                  onTap: _navigateToRegister,
+                  child: const Text(
                     'Daftar disini',
                     style: TextStyle(
                       fontSize: 16,
@@ -228,7 +243,7 @@ class _LoginPageState extends State<LoginPage> {
 //   }
 
 //   // Metode untuk melakukan navigasi ke laman home
-//   void _navigateToHome() {
+//   void _navigateToRegister() {
 //     Navigator.pushNamed(context, '/scanPreview');
 //   }
 
@@ -317,8 +332,8 @@ class _LoginPageState extends State<LoginPage> {
 
 //                 // Menambahkan text dengan navigasi menuju laman daftar
 //                 InkWell(
-//                   // Mengembalikan pemanggilan ke metode _navigateToHome
-//                   onTap: _navigateToHome,
+//                   // Mengembalikan pemanggilan ke metode _navigateToRegister
+//                   onTap: _navigateToRegister,
 //                   child: Row(
 //                     children: [
 //                       Text(
@@ -363,8 +378,8 @@ class _LoginPageState extends State<LoginPage> {
 
 //                 // Menambahkan text dengan navigasi menuju laman daftar
 //                 InkWell(
-//                   // Mengembalikan pemanggilan ke metode _navigateToHome
-//                   onTap: _navigateToHome,
+//                   // Mengembalikan pemanggilan ke metode _navigateToRegister
+//                   onTap: _navigateToRegister,
 //                   child: Text(
 //                     'Daftar disini',
 //                     style: TextStyle(

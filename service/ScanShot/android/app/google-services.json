@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "712311962804",
+    "project_id": "scanshot-17688",
+    "storage_bucket": "scanshot-17688.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712311962804:android:3af06cd6cb90b9fcea6be1",
+        "android_client_info": {
+          "package_name": "com.example.scanshot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA137yk3z08O-VLN1fP7buR9H2KFO55Mu4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
