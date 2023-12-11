@@ -1,5 +1,7 @@
 // import 'dart:js';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:scanshot/pages/auth_page.dart';
 import 'firebase_options.dart';
 
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ import 'package:scanshot/pages/result.dart';
 import 'package:scanshot/pages/login_page.dart';
 import 'package:scanshot/pages/splash_screen.dart';
 import 'package:scanshot/pages/lupa_password.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart'; 
 
 
 Future main() async {
@@ -21,9 +24,9 @@ Future main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
+    home: AuthPage(),
     theme: ThemeData(
       scaffoldBackgroundColor: const Color(0xFF252525),
     ),
