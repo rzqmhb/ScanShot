@@ -48,13 +48,8 @@ Future main() async {
           return PageTransition(child: ScanPreview(), type: PageTransitionType.leftToRight, settings: settings,);
         case '/scan':
           return PageTransition(child: Scan(), type: PageTransitionType.bottomToTop, settings: settings,);
-<<<<<<< HEAD
-          break;
         case '/lupaPassword':
           return PageTransition(child: LupaPassword(), type: PageTransitionType.bottomToTop, settings: settings,);
-          break;
-=======
->>>>>>> 9f0d80c955b1a853f3260689fa0bfec06ec97214
         default:
           return null;
       }
