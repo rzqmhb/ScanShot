@@ -12,27 +12,26 @@ class LoginPage extends StatefulWidget {
 
 // Mengatur input dari input username dan password
 class _LoginPageState extends State<LoginPage> {
-  final  emailController = TextEditingController();
-  final  _passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   // Metode _login() untuk melakukan pemanggilan pada button 'Masuk' yang mengembalikan pada variabel username dan password
   void _login() async {
     //loading
     showDialog(
-    context: context,
-    builder: (context){
-      return const Center(
-        child: CircularProgressIndicator(),
-        );
-    });
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
 
     // Proses login
     await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.text, password: _passwordController.text);
+        email: emailController.text, password: _passwordController.text);
 
-      // Pop Loading
-      Navigator.pop(context);
-    
+    // Pop Loading
+    Navigator.pop(context);
   }
 
   // Metode untuk melakukan navigasi ke laman home
@@ -48,9 +47,10 @@ class _LoginPageState extends State<LoginPage> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text('Masuk'),
+        titleTextStyle: TextStyle(color: Colors.white),
         backgroundColor: const Color(0xFF252525),
         elevation: 0,
-      ),
+      ),  
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
