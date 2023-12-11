@@ -11,6 +11,8 @@ import 'package:scanshot/pages/dashboard.dart';
 import 'package:scanshot/pages/result.dart';
 import 'package:scanshot/pages/login_page.dart';
 import 'package:scanshot/pages/splash_screen.dart';
+import 'package:scanshot/pages/lupa_password.dart';
+
 
 void main() {
   runApp(MaterialApp(
@@ -52,6 +54,9 @@ void main() {
           break;
         case '/scan':
           return PageTransition(child: Scan(), type: PageTransitionType.bottomToTop, settings: settings,);
+          break;
+        case '/lupaPassword':
+          return PageTransition(child: LupaPassword(), type: PageTransitionType.bottomToTop, settings: settings,);
           break;
         default:
           return null;
