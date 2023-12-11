@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:scanshot/pages/account_pages/account_information.dart';
 import 'package:scanshot/pages/auth_page.dart';
+import 'package:scanshot/pages/form_page.dart';
 import 'firebase_options.dart';
 
 import 'package:flutter/material.dart';
@@ -88,6 +89,12 @@ Future main() async {
         case '/informasiAkun':
           return PageTransition(
             child: InformasiAkun(),
+            type: PageTransitionType.bottomToTop,
+            settings: settings,
+          );
+        case '/form':
+          return PageTransition(
+            child: const FormPage(),
             type: PageTransitionType.bottomToTop,
             settings: settings,
           );
