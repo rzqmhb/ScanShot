@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:scanshot/widget/footer.dart';
 import 'package:scanshot/widget/title_form.dart';
+import 'package:scanshot/widget/form_widget.dart';
+import 'package:scanshot/widget/member_form_widget.dart';
 
 class FormPage extends StatefulWidget {
   const FormPage({super.key});
@@ -29,6 +31,17 @@ class _FormPageState extends State<FormPage> {
                 'assets/back_icon.png',
                 width: 20,
                 height: 17,
+              ),
+            ),
+          ),
+          const Positioned(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  FormWidget(),
+                  SizedBox(height: 20),
+                  MemberFormWidget(),
+                ],
               ),
             ),
           ),
