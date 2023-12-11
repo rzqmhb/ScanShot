@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final String hintText;
+  final TextEditingController controller;
 
-  const TextFieldWidget({required this.hintText});
+  const TextFieldWidget({required this.hintText, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
       child: TextField(
+        controller: controller,
         style: TextStyle(
             color: Color.fromARGB(255, 255, 255, 255),
             fontSize: 12,
