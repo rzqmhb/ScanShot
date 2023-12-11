@@ -3,6 +3,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:scanshot/widget/checkBox.dart';
 import 'package:scanshot/widget/loading.dart';
 import 'package:scanshot/widget/textField.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
@@ -12,6 +13,15 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  void _register() async {
+    // Proses register
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text, password: passwordController.text);
+  }
+
   Widget icon = Image.asset(
     'assets/images/registerIcon.png',
     width: 200,
@@ -57,6 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
           setState(() {
             isLoading = true;
           });
+          _register();
           await Future.delayed(Duration(seconds: 2));
           setState(() {
             isLoading = false;
@@ -93,10 +104,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     // mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       icon,
-                      TextFieldWidget(hintText: 'Nama Pengguna'),
-                      TextFieldWidget(hintText: 'Surel'),
-                      TextFieldWidget(hintText: 'Kata Sandi'),
-                      TextFieldWidget(hintText: 'Konfirmasi Kata Sandi'),
+                      TextFieldWidget(
+                        hintText: 'Surel',
+                        controller: emailController,
+                      ),
+                      TextFieldWidget(
+                        hintText: 'Kata Sandi',
+                        controller: passwordController,
+                      ),
                       CheckBoxWidget(),
                       buttonRegister(context),
                       textLogin(context),
