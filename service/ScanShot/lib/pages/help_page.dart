@@ -63,7 +63,7 @@ class HelpPage extends StatelessWidget {
         backgroundColor: Color.fromRGBO(37, 37, 37, 1),
         leading: InkWell(
             onTap: () {
-              Navigator.pushNamed(context, '/profile');
+              Navigator.pop(context);
             },
             child: Icon(Icons.arrow_back,
                 color: Color.fromRGBO(255, 255, 255, 1))),

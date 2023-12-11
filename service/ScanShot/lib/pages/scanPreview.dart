@@ -18,15 +18,15 @@ class ScanPreview extends StatelessWidget {
     final camera = Camera();
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 37, 37, 37),
+      backgroundColor: const Color.fromARGB(255, 37, 37, 37),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 37, 37, 37),
+        backgroundColor: const Color.fromARGB(255, 37, 37, 37),
         elevation: 0,
         leading: InkWell(
           onTap: () {
             Navigator.of(context).pop();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back_ios,
             color: Colors.white,
           ),
@@ -44,10 +44,10 @@ class ScanPreview extends StatelessWidget {
                   Navigator.pushNamed(context, '/scan');
                 },
                 child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  borderRadius: const BorderRadius.all(Radius.circular(15)),
                   child: Stack(
                     children: <Widget> [
-                      Container(
+                      SizedBox(
                         height: 230,
                         width: 390,
                         // color: Colors.white,
@@ -56,8 +56,8 @@ class ScanPreview extends StatelessWidget {
                       Container(
                         height: 230,
                         width: 390,
-                        color: Color.fromARGB(70, 255, 255, 255),
-                        child: Center(
+                        color: const Color.fromARGB(70, 255, 255, 255),
+                        child: const Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -66,7 +66,7 @@ class ScanPreview extends StatelessWidget {
                                 color: Color.fromARGB(255, 37, 37, 37),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 15),
+                                padding: EdgeInsets.only(top: 15),
                                 child: Text(
                                   "Scan using camera",
                                   style: TextStyle(
@@ -87,14 +87,14 @@ class ScanPreview extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Container(
-                  padding: EdgeInsets.all(0),
+                  padding: const EdgeInsets.all(0),
                   width: 390,
                   color: Colors.transparent,
                   child: ClipRRect(
                     // borderRadius: BorderRadius.all(Radius.circular(15)),
                     borderRadius: BorderRadius.circular(15),
                     child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                         crossAxisSpacing: 7,
                         mainAxisSpacing: 7,
@@ -104,7 +104,7 @@ class ScanPreview extends StatelessWidget {
                       //   childAspectRatio: 1,
                       //   crossAxisSpacing: 1.2,
                       //   mainAxisSpacing: 1.2),
-                      padding: EdgeInsets.all(0),
+                      padding: const EdgeInsets.all(0),
                       itemCount: 6,
                       itemBuilder: ((context, index) {
                         final image = images[index];
