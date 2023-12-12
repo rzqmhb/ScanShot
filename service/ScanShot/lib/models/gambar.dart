@@ -1,7 +1,7 @@
 class Gambar {
-  int? idGambar;
-  String? lokasiFile;
-  DateTime? waktuPengambilan;
+  final int? idGambar;
+  final String? lokasiFile;
+  final DateTime? waktuPengambilan;
 
   Gambar({
     this.idGambar,
