@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:scanshot/widget/checkBox.dart';
+import 'package:scanshot/widget/dialog_error.dart';
 import 'package:scanshot/widget/loading.dart';
 import 'package:scanshot/widget/textField.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,8 +19,45 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void _register() async {
     // Proses register
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text, password: passwordController.text);
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text)
+          .then((value) {
+        Navigator.pushNamed(context, '/');
+      });
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-email') {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return DialogError(
+              error: 'Format Email Tidak Benar, Coba Lagi!',
+            );
+          },
+        );
+      } else if (e.code == 'weak-password') {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return DialogError(
+              error: 'Password Terlalu Mudah, Coba Lagi!',
+            );
+          },
+        );
+      } else if (e.code == 'email-already-in-use') {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return DialogError(
+              error: 'Email Sudah Digunakan!',
+            );
+          },
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   Widget icon = Image.asset(
@@ -67,12 +105,12 @@ class _RegisterPageState extends State<RegisterPage> {
           setState(() {
             isLoading = true;
           });
-          _register();
+
           await Future.delayed(Duration(seconds: 2));
+          _register();
           setState(() {
             isLoading = false;
           });
-          Navigator.pushNamed(context, '/');
         },
         child: Text(
           'REGISTRASI',
