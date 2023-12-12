@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
         email: emailController.text, password: _passwordController.text);
 
     // Pop Loading
-    Navigator.pop(context);
+    Navigator.pushNamed(context, '/');
   }
 
   // Metode untuk melakukan navigasi ke laman home
