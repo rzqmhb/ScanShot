@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
 
   // Metode untuk melakukan navigasi ke laman home
   void _navigateToRegister() {
-    Navigator.pushNamed(context, '/register');
+    Navigator.pushNamed(context, '/lupaPassword');
   }
 
   @override
