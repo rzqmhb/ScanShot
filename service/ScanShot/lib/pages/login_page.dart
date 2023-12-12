@@ -17,26 +17,22 @@ class _LoginPageState extends State<LoginPage> {
 
   // Metode _login() untuk melakukan pemanggilan pada button 'Masuk' yang mengembalikan pada variabel username dan password
   void _login() async {
-    //loading
-    showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        });
-
     // Proses login
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text, password: _passwordController.text);
-
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: emailController.text, password: _passwordController.text)
+        .then((value) {
+      Navigator.pushNamed(context, '/');
+    });
     // Pop Loading
     Navigator.pushNamed(context, '/');
   }
 
+  bool isLoading = false;
+
   // Metode untuk melakukan navigasi ke laman home
   void _navigateToRegister() {
-    Navigator.pushNamed(context, '/register');
+    Navigator.pushNamed(context, '/lupaPassword');
   }
 
   @override
@@ -50,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
         titleTextStyle: TextStyle(color: Colors.white),
         backgroundColor: const Color(0xFF252525),
         elevation: 0,
-      ),  
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -149,7 +145,17 @@ class _LoginPageState extends State<LoginPage> {
 
                 // Menambahkan button login dan mengarahkan ke laman berikutnya
                 ElevatedButton(
-                  onPressed: _login,
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    _login();
+                    await Future.delayed(Duration(seconds: 2));
+                    setState(() {
+                      isLoading = false;
+                    });
+                    Navigator.pushNamed(context, '/');
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFFFC60B),
                   ),
