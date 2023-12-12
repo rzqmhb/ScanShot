@@ -6,10 +6,10 @@ class MemberFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(64.0),
+      padding: const EdgeInsets.only(top: 64.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color(0xFF494949),
           borderRadius: BorderRadius.circular(10),
         ),
         child: SingleChildScrollView(
@@ -19,46 +19,194 @@ class MemberFormWidget extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'Nama Lengkap')),
+                    decoration: const InputDecoration(
+                      fillColor: Color(0xFFFFC60B),
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const Text('NIK', style: TextStyle(color: Colors.white)),
                   TextFormField(
-                      decoration: const InputDecoration(labelText: 'NIK')),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const Text('Jenis Kelamin',
+                      style: TextStyle(color: Colors.white)),
                   TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'Jenis Kelamin')),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const Text('Tempat Lahir',
+                      style: TextStyle(color: Colors.white)),
                   TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'Tempat Lahir')),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const Text('Tanggal Lahir',
+                      style: TextStyle(color: Colors.white)),
                   TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'Tanggal Lahir')),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const Text('Agama', style: TextStyle(color: Colors.white)),
                   TextFormField(
-                      decoration: const InputDecoration(labelText: 'Agama')),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const Text('Pendidikan',
+                      style: TextStyle(color: Colors.white)),
                   TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'Pendidikan')),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const Text('Jenis Pekerjaan',
+                      style: TextStyle(color: Colors.white)),
                   TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'Jenis Pekerjaan')),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const Text('Status Perkawinan',
+                      style: TextStyle(color: Colors.white)),
                   TextFormField(
-                      decoration: const InputDecoration(
-                          labelText: 'Status Perkawinan')),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const Text('Status Hubungan',
+                      style: TextStyle(color: Colors.white)),
                   TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'Status Hubungan')),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const Text('Kewarganegaraan',
+                      style: TextStyle(color: Colors.white)),
                   TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'Kewarganegaraan')),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const Text('No. Paspor',
+                      style: TextStyle(color: Colors.white)),
                   TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'No. Paspor')),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const Text('No. KITAP',
+                      style: TextStyle(color: Colors.white)),
                   TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'No. KITAP')),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const Text('Ayah', style: TextStyle(color: Colors.white)),
                   TextFormField(
-                      decoration: const InputDecoration(labelText: 'Ayah')),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
+                  const Text('Ibu', style: TextStyle(color: Colors.white)),
                   TextFormField(
-                      decoration: const InputDecoration(labelText: 'Ibu')),
+                    decoration: const InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 0.5),
+                      ),
+                    ),
+                    style: const TextStyle(color: Colors.black),
+                  ),
                 ],
               ),
             ),
