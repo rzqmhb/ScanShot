@@ -36,12 +36,15 @@ class _FormPageState extends State<FormPage> {
           ),
           const Positioned(
             child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  FormWidget(),
-                  SizedBox(height: 20),
-                  MemberFormWidget(),
-                ],
+              child: Padding(
+                padding: EdgeInsets.only(top: 100.0),
+                child: Column(
+                  children: <Widget>[
+                    FormWidget(),
+                    SizedBox(height: 20),
+                    MemberFormWidget(),
+                  ],
+                ),
               ),
             ),
           ),
