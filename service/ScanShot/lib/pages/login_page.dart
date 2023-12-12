@@ -27,11 +27,14 @@ class _LoginPageState extends State<LoginPage> {
         });
 
     // Proses login
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text, password: _passwordController.text);
-
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: emailController.text, password: _passwordController.text)
+        .then((value) {
+      Navigator.pushNamed(context, '/');
+    });
     // Pop Loading
-    Navigator.pop(context);
+    // Navigator.pop(context);
   }
 
   // Metode untuk melakukan navigasi ke laman home
@@ -50,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
         titleTextStyle: TextStyle(color: Colors.white),
         backgroundColor: const Color(0xFF252525),
         elevation: 0,
-      ),  
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
