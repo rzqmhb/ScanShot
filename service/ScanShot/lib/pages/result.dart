@@ -100,15 +100,16 @@ class ResultPage extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            Clipboard.setData(ClipboardData(text: kk.teks));
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Seluruh Teks Disalin'),
-                              ),
-                            );
+                            // Clipboard.setData(ClipboardData(text: kk.teks));
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   const SnackBar(
+                            //     content: Text('Seluruh Teks Disalin'),
+                            //   ),
+                            // );
+                            Navigator.pushNamed(context, '/form');
                           },
                           child: Image.asset(
-                            'assets/copy_icon.png',
+                            'assets/form_icon.png',
                             width: 36,
                             height: 36,
                           ),

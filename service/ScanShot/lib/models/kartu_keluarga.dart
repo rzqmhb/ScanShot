@@ -1,4 +1,7 @@
+import 'package:scanshot/models/anggota_keluarga.dart';
+
 class KartuKeluarga {
+  int? idKK;
   int? noKK;
   int? noK;
   String? kepalaKeluarga;
@@ -13,8 +16,10 @@ class KartuKeluarga {
   DateTime? tanggalDikeluarkan;
   String? kepalaDinas;
   int? nipKepalaDinas;
+  List<AnggotaKeluarga> anggotaKeluarga;
 
   KartuKeluarga({
+    this.idKK,
     this.noKK,
     this.noK,
     this.kepalaKeluarga,
@@ -29,5 +34,6 @@ class KartuKeluarga {
     this.tanggalDikeluarkan,
     this.kepalaDinas,
     this.nipKepalaDinas,
+    this.anggotaKeluarga = const [],
   });
 }

@@ -1,10 +1,16 @@
 // import 'dart:js';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:scanshot/widget/user_image.dart';
-import 'package:scanshot/widget/logout.dart';
 
 class ProfilePage extends StatelessWidget {
+  final user = FirebaseAuth.instance.currentUser!;
+
+  void _logout() {
+    FirebaseAuth.instance.signOut();
+  }
+
   Widget listWithIcon(BuildContext context,
       {required String hintText,
       required IconData icon,
@@ -55,7 +61,7 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: Color.fromRGBO(37, 37, 37, 1),
         leading: InkWell(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushNamed(context as BuildContext, '/');
             },
             child: Icon(
               Icons.arrow_back,
@@ -75,7 +81,7 @@ class ProfilePage extends StatelessWidget {
             UserImage(),
             SizedBox(height: 10),
             Text(
-              'Edit',
+              'Hello ' + user.email!,
               style: TextStyle(
                   fontSize: 16, color: Color.fromRGBO(166, 166, 166, 1)),
               textAlign: TextAlign.center,
@@ -85,7 +91,7 @@ class ProfilePage extends StatelessWidget {
                 hintText: 'Akun',
                 icon: Icons.account_circle,
                 trailingIcon: Icons.arrow_right,
-                route: '/#'),
+                route: '/informasiAkun'),
             listWithIcon(context,
                 hintText: 'Pengaturan',
                 icon: Icons.settings,
@@ -102,10 +108,21 @@ class ProfilePage extends StatelessWidget {
                 icon: Icons.help_outline,
                 trailingIcon: Icons.arrow_right,
                 route: '/help'),
+            SizedBox(height: 200),
+            ElevatedButton(
+              onPressed: _logout,
+              child: Text(
+                'Logout',
+                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                textAlign: TextAlign.center,
+              ),
+              style: ElevatedButton.styleFrom(
+                  primary: Color.fromARGB(255, 255, 35, 11),
+                  fixedSize: Size(100, 30)),
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: const Logout(),
     );
   }
 }

@@ -12,30 +12,26 @@ class LoginPage extends StatefulWidget {
 
 // Mengatur input dari input username dan password
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   // Metode _login() untuk melakukan pemanggilan pada button 'Masuk' yang mengembalikan pada variabel username dan password
-  void _login() {
-    String username = _usernameController.text;
-    String password = _passwordController.text;
+  void _login() async {
+    //loading
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
 
-    try {
-      FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: username,
-        password: password
-      ).then((value) {
-        Navigator.pushReplacementNamed(context, '/');
-      });
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'invalid-login-credentials') {
-        debugPrint('Username or password invalid');
-      } else if (e.code == 'wrong-password') {
-        debugPrint('Wrong password provided for that user.');
-      }
-    } catch (e) {
-      print(e);
-    }
+    // Proses login
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text, password: _passwordController.text);
+
+    // Pop Loading
+    Navigator.pop(context);
   }
 
   // Metode untuk melakukan navigasi ke laman home
@@ -51,9 +47,10 @@ class _LoginPageState extends State<LoginPage> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text('Masuk'),
+        titleTextStyle: TextStyle(color: Colors.white),
         backgroundColor: const Color(0xFF252525),
         elevation: 0,
-      ),
+      ),  
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -73,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 // Menambahkan text dengan style berikut
                 const Text(
-                  'Silakan masukkan nama pengguna dan kata sandi Anda',
+                  'Silakan masukkan email dan kata sandi Anda',
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'Inter',
@@ -87,10 +84,10 @@ class _LoginPageState extends State<LoginPage> {
 
                 // Mengambil input pada kolom Username
                 FormBuilderTextField(
-                  name: 'username',
-                  controller: _usernameController,
+                  name: 'Email',
+                  controller: emailController,
                   decoration: InputDecoration(
-                    labelText: 'Nama Pengguna',
+                    labelText: 'Email',
                     labelStyle: const TextStyle(color: Colors.white),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),

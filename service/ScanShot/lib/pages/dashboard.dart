@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scanshot/models/hasil.dart';
 import 'package:scanshot/models/keluarga_kartu.dart';
 import 'package:scanshot/widget/footer.dart';
 import 'package:scanshot/widget/title.dart';
@@ -69,6 +70,8 @@ class DashboardPageState extends State<DashboardPage> {
       ***''',
     ),
   ];
+
+  final List<Hasil> riwayat = [];
 
   void removeKartuKeluarga(int id) {
     setState(() {
