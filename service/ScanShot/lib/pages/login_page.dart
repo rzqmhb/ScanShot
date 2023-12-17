@@ -18,15 +18,21 @@ class _LoginPageState extends State<LoginPage> {
   // Metode _login() untuk melakukan pemanggilan pada button 'Masuk' yang mengembalikan pada variabel username dan password
   void _login() async {
     // Proses login
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text, password: _passwordController.text);
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: emailController.text, password: _passwordController.text)
+        .then((value) {
+      Navigator.pushNamed(context, '/');
+    });
+    // Pop Loading
+    Navigator.pushNamed(context, '/');
   }
 
   bool isLoading = false;
 
   // Metode untuk melakukan navigasi ke laman home
   void _navigateToRegister() {
-    Navigator.pushNamed(context, '/register');
+    Navigator.pushNamed(context, '/lupaPassword');
   }
 
   @override

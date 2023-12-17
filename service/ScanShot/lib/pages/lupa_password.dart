@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
@@ -9,14 +10,36 @@ class LupaPassword extends StatefulWidget {
 }
 
 class _LupaPasswordState extends State<LupaPassword> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final  emailController = TextEditingController();
 
-  void _login() {
-    String username = _usernameController.text;
-    String password = _passwordController.text;
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
 
-    Navigator.pushReplacementNamed(context, '/');
+  void lupaPassword() async {
+    try {
+    await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: emailController.text.trim());
+    showDialog(
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            content: Text('Pembaharuan kata sandi telah dikirimkan, silahkan periksa email anda!'),
+          );
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      showDialog(
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            content: Text(e.message.toString()),
+          );
+        },
+      );
+    }
   }
 
   void _navigateToHome() {
@@ -59,18 +82,9 @@ class _LupaPasswordState extends State<LupaPassword> {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 20),
-                // Text(
-                //   'Email',
-                //   style: TextStyle(
-                //     fontSize: 16,
-                //     fontFamily: 'Inter',
-                //      color: Colors.white,
-                //   ),
-                // ),
-                SizedBox(height: 20),
                 FormBuilderTextField(
                   name: 'Email',
-                  controller: _usernameController,
+                  controller: emailController,
                   decoration: InputDecoration(
                     labelText: 'Email',
                     labelStyle: TextStyle(color: Colors.white),
@@ -87,7 +101,9 @@ class _LupaPasswordState extends State<LupaPassword> {
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _login,
+                  onPressed: () async {
+                    lupaPassword();
+                  },
                   child: Text(
                     'Kirim',
                     style: TextStyle(color: Color(0xFF252525)),
