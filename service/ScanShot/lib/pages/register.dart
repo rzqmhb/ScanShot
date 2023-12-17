@@ -159,6 +159,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             isChecked = value ?? false;
                           });
                         },
+                        isChecked: isChecked,
                       ),
                       buttonRegister(context),
                       textLogin(context),

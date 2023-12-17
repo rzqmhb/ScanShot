@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 
 class CheckBoxWidget extends StatefulWidget {
   final ValueChanged<bool?> onCheckboxChanged;
-  CheckBoxWidget({super.key, required this.onCheckboxChanged});
+  final bool isChecked;
+  CheckBoxWidget(
+      {super.key, required this.onCheckboxChanged, required this.isChecked});
 
   @override
   State<CheckBoxWidget> createState() => _CheckBoxState();
 }
 
 class _CheckBoxState extends State<CheckBoxWidget> {
-  bool isChecked = false;
+  late bool isChecked;
+
+  @override
+  void initState() {
+    super.initState();
+    isChecked = widget.isChecked;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +26,9 @@ class _CheckBoxState extends State<CheckBoxWidget> {
       activeColor: Colors.white,
       side: BorderSide(color: Color.fromARGB(255, 255, 198, 11)),
       value: isChecked,
-      onChanged: (bool? value) {
+      onChanged: (value) {
         setState(() {
-          isChecked = value!;
+          isChecked = value ?? false;
         });
         widget.onCheckboxChanged(value);
       },
