@@ -202,6 +202,7 @@ Widget uploadField() {
   }
 
   bool isLoading = false;
+  bool isChecked = false;
 
   Widget buttonRegister(BuildContext context) {
     return Padding(
@@ -209,21 +210,26 @@ Widget uploadField() {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            fixedSize: const Size(800, 35),
-            backgroundColor: const Color.fromARGB(255, 255, 198, 11)),
-        onPressed: () async {
-          setState(() {
-            isLoading = true;
-          });
-          await Future.delayed(Duration(seconds: 2));
-          _register();
-          setState(() {
-            isLoading = false;
-          });
-        },
-        child: const Text(
+                borderRadius: BorderRadius.circular(10.0)
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 40),
+            fixedSize: Size(800, 35),
+            backgroundColor: Color.fromARGB(255, 255, 198, 11)
+        ),
+        onPressed: isChecked
+            ? () async {
+                setState(() {
+                  isLoading = true;
+                });
+
+                await Future.delayed(Duration(seconds: 2));
+                _register();
+                setState(() {
+                  isLoading = false;
+                });
+              }
+            : null,
+        child: Text(
           'REGISTRASI',
           style: TextStyle(
               color: Colors.black, fontSize: 14.0, fontWeight: FontWeight.w700),
@@ -268,7 +274,14 @@ Widget uploadField() {
                         controller: passwordController,
                       ),
                       uploadField(),
-                      const CheckBoxWidget(),
+                      CheckBoxWidget(
+                        onCheckboxChanged: (value) {
+                          setState(() {
+                            isChecked = value ?? false;
+                          });
+                        },
+                        isChecked: isChecked,
+                      ),
                       buttonRegister(context),
                       textLogin(context),
                     ],
