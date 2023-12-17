@@ -171,6 +171,7 @@ Widget uploadField() {
       ),
     ),
   );
+}
 
   Widget icon = Image.asset(
     'assets/images/registerIcon.png',
