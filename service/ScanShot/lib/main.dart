@@ -4,8 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:scanshot/pages/account_pages/account_information.dart';
 import 'package:scanshot/pages/auth_page.dart';
 import 'package:scanshot/pages/form_page.dart';
+import 'package:scanshot/pages/image_page.dart';
 import 'firebase_options.dart';
-
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:scanshot/pages/register.dart';
@@ -96,6 +96,12 @@ Future main() async {
           return PageTransition(
             child: const FormPage(),
             type: PageTransitionType.bottomToTop,
+            settings: settings,
+          );
+        case '/image':
+          return PageTransition(
+            child: const ImageResultScreen(imagePath: '',),
+            type: PageTransitionType.topToBottom,
             settings: settings,
           );
         default:
