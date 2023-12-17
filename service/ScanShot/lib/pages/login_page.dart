@@ -32,6 +32,10 @@ class _LoginPageState extends State<LoginPage> {
 
   // Metode untuk melakukan navigasi ke laman home
   void _navigateToRegister() {
+    Navigator.pushNamed(context, '/register');
+  }
+
+  void _navigateToForgot() {
     Navigator.pushNamed(context, '/lupaPassword');
   }
 
@@ -125,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 // Membuat teks 'Lupa sandi' agar dapat menuju laman lain
                 InkWell(
-                  onTap: _navigateToRegister,
+                  onTap: _navigateToForgot,
                   child: const Row(
                     children: [
                       Text(

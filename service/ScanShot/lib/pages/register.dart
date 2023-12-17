@@ -90,6 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   bool isLoading = false;
+  bool isChecked = false;
 
   Widget buttonRegister(BuildContext context) {
     return Padding(
@@ -101,17 +102,19 @@ class _RegisterPageState extends State<RegisterPage> {
             padding: EdgeInsets.symmetric(horizontal: 40),
             fixedSize: Size(800, 35),
             backgroundColor: Color.fromARGB(255, 255, 198, 11)),
-        onPressed: () async {
-          setState(() {
-            isLoading = true;
-          });
+        onPressed: isChecked
+            ? () async {
+                setState(() {
+                  isLoading = true;
+                });
 
-          await Future.delayed(Duration(seconds: 2));
-          _register();
-          setState(() {
-            isLoading = false;
-          });
-        },
+                await Future.delayed(Duration(seconds: 2));
+                _register();
+                setState(() {
+                  isLoading = false;
+                });
+              }
+            : null,
         child: Text(
           'REGISTRASI',
           style: TextStyle(
@@ -150,7 +153,13 @@ class _RegisterPageState extends State<RegisterPage> {
                         hintText: 'Kata Sandi',
                         controller: passwordController,
                       ),
-                      CheckBoxWidget(),
+                      CheckBoxWidget(
+                        onCheckboxChanged: (value) {
+                          setState(() {
+                            isChecked = value ?? false;
+                          });
+                        },
+                      ),
                       buttonRegister(context),
                       textLogin(context),
                     ],
