@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scanshot/widget/image_widget.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:scanshot/widget/loading.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -32,12 +33,15 @@ class _LoginPageState extends State<LoginPage> {
 
   // Metode untuk melakukan navigasi ke laman home
   void _navigateToRegister() {
+    Navigator.pushNamed(context, '/register');
+  }
+  void _navigateToLupaPassword() {
     Navigator.pushNamed(context, '/lupaPassword');
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return isLoading ? LoadingWidget(widget: LoginPage()) : Scaffold(
       backgroundColor: const Color(0xFF252525),
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -125,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 // Membuat teks 'Lupa sandi' agar dapat menuju laman lain
                 InkWell(
-                  onTap: _navigateToRegister,
+                  onTap: _navigateToLupaPassword,
                   child: const Row(
                     children: [
                       Text(
