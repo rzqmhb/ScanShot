@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
 class Camera extends StatefulWidget {
+  final GlobalKey<_CameraState> key = GlobalKey<_CameraState>();
+  CameraController? get controller => key.currentState?.controller;
+
   @override
   _CameraState createState() => _CameraState();
 }
@@ -15,6 +18,12 @@ class _CameraState extends State<Camera> {
   void initState() {
     loadCamera();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
   }
 
   loadCamera() async {
@@ -37,7 +46,9 @@ class _CameraState extends State<Camera> {
     return Container(
       // height: 230,
       // width: 315,
-      child: controller == null ? Center(child:Text("Loading Camera...", style: TextStyle(color: Colors.white),)) : !controller!.value.isInitialized ? Center(child:Text("Loading Camera...", style: TextStyle(color: Colors.white),)) : AspectRatio(aspectRatio: controller!.value.aspectRatio, child: CameraPreview(controller!),)
+      child: controller == null ? 
+      SizedBox.shrink() :
+      AspectRatio(aspectRatio: controller!.value.aspectRatio, child: CameraPreview(controller!),)
     );
   }
 }

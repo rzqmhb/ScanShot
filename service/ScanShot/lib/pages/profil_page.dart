@@ -61,7 +61,7 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: Color.fromRGBO(37, 37, 37, 1),
         leading: InkWell(
             onTap: () {
-              Navigator.pushNamed(context as BuildContext, '/');
+              Navigator.pop(context);
             },
             child: Icon(
               Icons.arrow_back,
@@ -110,16 +110,48 @@ class ProfilePage extends StatelessWidget {
                 route: '/help'),
             SizedBox(height: 200),
             ElevatedButton(
-              onPressed: _logout,
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Konfirmasi'),
+                      content: Text('Apakah Anda yakin ingin logout?'),
+                      titleTextStyle: TextStyle(color: Colors.white),
+                      contentTextStyle: TextStyle(color: Colors.white),
+                      backgroundColor: const Color(0xFF252525),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text(
+                            'Batal',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        TextButton(
+                          child: Text(
+                            'Logout',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: _logout,
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
               child: Text(
                 'Logout',
                 style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                 textAlign: TextAlign.center,
               ),
               style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 255, 35, 11),
-                  fixedSize: Size(100, 30)),
-            ),
+                primary: Color.fromARGB(255, 255, 35, 11),
+                fixedSize: Size(100, 30),
+              ),
+            )
           ],
         ),
       ),

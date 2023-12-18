@@ -1,21 +1,71 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:photo_manager/photo_manager.dart';
+import 'package:scanshot/pages/image_page.dart';
 import 'package:scanshot/widget/camera.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class ScanPreview extends StatelessWidget {
+class ScanPreview extends StatefulWidget {
   ScanPreview({super.key});
 
-  final List<String> images = [
-    "https://i.pinimg.com/736x/f2/c0/a1/f2c0a1e29776f51197684a2188409306.jpg",
-    "https://i.pinimg.com/564x/9a/f6/1f/9af61f7b8ec622d47028b99872a5b2d3.jpg",
-    "https://i.pinimg.com/originals/8e/d5/44/8ed544828b683ffe43f13d7f10aa64b7.jpg",
-    "https://i.pinimg.com/originals/ee/fe/7e/eefe7ebdbe6b5c028a1ac34a195423e0.jpg",
-    "https://i.pinimg.com/564x/e5/01/32/e501327e09929f2a51f11e1bd649da91.jpg",
-    "https://i.pinimg.com/564x/35/97/41/359741b677e8ed1d5ab2f2601fb9ee6b.jpg",
-  ];
+  @override
+  State<ScanPreview> createState() => _ScanPreviewState();
+}
+
+class _ScanPreviewState extends State<ScanPreview> {
+  final camera = Camera();
+  List<AssetEntity> assets = [];
+  ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    getPermission();
+    _fetchAssets();
+    _scrollController.addListener(_loadMoreAssets);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.removeListener(_loadMoreAssets);
+  }
+
+  Future getPermission() async {
+    var status = await Permission.storage.request();
+    if (status.isGranted) {
+      // Permission granted, proceed with your functionality
+    } else if (status.isPermanentlyDenied) {
+      // The user opted to never again see the permission request dialog for this
+      // app. The only way to change the permission's status now is to let the
+      // user manually enable it in the system settings.
+      openAppSettings();
+    }
+  }
+
+  void _fetchAssets() async {
+    final albums = await PhotoManager.getAssetPathList(type: RequestType.image,);
+    final recentAlbum = albums.first;
+    if (assets.length != 0) {
+      final recentAssets = await recentAlbum.getAssetListRange(start: assets.length, end: assets.length+10,);
+      setState(() => assets += recentAssets);
+      return;
+    }
+    final recentAssets = await recentAlbum.getAssetListRange(start: 0, end: 10,);
+    setState(() => assets = recentAssets);
+  }
+
+  void _loadMoreAssets() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      _fetchAssets();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final camera = Camera();
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 37, 37, 37),
@@ -51,7 +101,7 @@ class ScanPreview extends StatelessWidget {
                         height: 230,
                         width: 390,
                         // color: Colors.white,
-                        child: Camera(),
+                        child: camera,
                       ),
                       Container(
                         height: 230,
@@ -91,29 +141,18 @@ class ScanPreview extends StatelessWidget {
                   width: 390,
                   color: Colors.transparent,
                   child: ClipRRect(
-                    // borderRadius: BorderRadius.all(Radius.circular(15)),
                     borderRadius: BorderRadius.circular(15),
                     child: GridView.builder(
+                      controller: _scrollController,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
+                        crossAxisCount: 2,
                         crossAxisSpacing: 7,
                         mainAxisSpacing: 7,
-                    ),
-                      // gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                      //   maxCrossAxisExtent: 200,
-                      //   childAspectRatio: 1,
-                      //   crossAxisSpacing: 1.2,
-                      //   mainAxisSpacing: 1.2),
+                      ),
                       padding: const EdgeInsets.all(0),
-                      itemCount: 6,
+                      itemCount: assets.length,
                       itemBuilder: ((context, index) {
-                        final image = images[index];
-                        return Image(
-                            image: NetworkImage(image),
-                            fit: BoxFit.cover,
-                            height: 90.0,
-                            width: 150.0,
-                          );
+                        return AssetThumbnail(asset: assets[index]);
                       }),
                     ),
                   ),
@@ -123,6 +162,35 @@ class ScanPreview extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class AssetThumbnail extends StatelessWidget {
+  final AssetEntity asset;
+
+  const AssetThumbnail({Key? key, required this.asset}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Uint8List?>(
+      future: asset.thumbnailDataWithSize(const ThumbnailSize.square(200)),
+      builder: (_, snapshot) {
+        final bytes = snapshot.data;
+        if (bytes == null) return CircularProgressIndicator();
+        return GestureDetector(
+          onTap: () async {
+            final file = await asset.file;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ImageResultScreen(imagePath: file!.path),
+              ),
+            );
+          },
+          child: Image.memory(bytes, fit: BoxFit.cover),
+        );
+      },
     );
   }
 }

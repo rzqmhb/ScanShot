@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pushNamed(context, '/');
     });
     // Pop Loading
-    // Navigator.pop(context);
+    Navigator.pushNamed(context, '/');
   }
 
   bool isLoading = false;
