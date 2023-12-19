@@ -100,7 +100,9 @@ Future main() async {
           );
         case '/image':
           return PageTransition(
-            child: const ImageResultScreen(imagePath: '',),
+            child: const ImageResultScreen(
+              imagePath: '',
+            ),
             type: PageTransitionType.topToBottom,
             settings: settings,
           );
