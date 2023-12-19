@@ -13,13 +13,16 @@ class DashboardPage extends StatefulWidget {
 }
 
 class DashboardPageState extends State<DashboardPage> {
-
   FirestoreHistory firestoreHistory = FirestoreHistory();
+
+  late Future<List<dynamic>> data;
 
   @override
   void initState() {
     super.initState();
-    firestoreHistory.getRiwayat();
+    setState(() {
+      data = firestoreHistory.getRiwayat();
+    });
   }
 
   final List<int> validId = [1, 2];
@@ -90,7 +93,6 @@ class DashboardPageState extends State<DashboardPage> {
   }
 
   void showInvalidMessage() {
-
     AlertDialog dialog = AlertDialog(
       title: const Text('Kartu Keluarga Tidak Dikenali'),
       content: const Text(
