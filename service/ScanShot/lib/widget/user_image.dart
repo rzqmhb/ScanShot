@@ -1,20 +1,6 @@
-// import 'package:flutter/material.dart';
-
-// class UserImage extends StatelessWidget {
-//   const UserImage({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Image(
-//       image: AssetImage("assets/user.png"),
-//       width: 60,
-//     );
-//   }
-// }
-
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UserImage extends StatefulWidget {
   const UserImage({Key? key}) : super(key: key);
@@ -24,8 +10,14 @@ class UserImage extends StatefulWidget {
 }
 
 class _UserImageState extends State<UserImage> {
-  // Simpan path atau data foto profil pengguna di sini
-  String imagePath = "assets/user.png";
+  User? user = FirebaseAuth.instance.currentUser;
+  String? imagePath;
+
+  @override
+  void initState() {
+    super.initState();
+    imagePath = user?.photoURL ?? "assets/user.png";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +28,7 @@ class _UserImageState extends State<UserImage> {
       },
       child: CircleAvatar(
         radius: 30,
-        backgroundImage: AssetImage(imagePath),
+        backgroundImage: NetworkImage(imagePath!),
       ),
     );
   }
@@ -77,4 +69,3 @@ class _UserImageState extends State<UserImage> {
     }
   }
 }
-
