@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scanshot/models/hasil.dart';
+import 'package:scanshot/models/kartu_keluarga.dart';
 import 'package:scanshot/models/keluarga_kartu.dart';
 import 'package:scanshot/models/firestore_history.dart';
 import 'package:scanshot/widget/footer.dart';
@@ -15,14 +16,9 @@ class DashboardPage extends StatefulWidget {
 class DashboardPageState extends State<DashboardPage> {
   FirestoreHistory firestoreHistory = FirestoreHistory();
 
-  late Future<List<dynamic>> data;
-
   @override
   void initState() {
     super.initState();
-    setState(() {
-      data = firestoreHistory.getRiwayat();
-    });
   }
 
   final List<int> validId = [1, 2];
@@ -136,110 +132,128 @@ class DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          const Positioned(
-            child: TitleWidget(),
-          ),
-          Positioned(
-            top: 92,
-            left: 26,
-            right: 26,
-            bottom: 72,
-            child: ListView.builder(
-              itemCount: kk.length,
-              itemBuilder: (context, index) {
-                final kartuKeluarga = kk[index];
-                return InkWell(
-                  onTap: () {
-                    if (validId.contains(kartuKeluarga.id)) {
-                      Navigator.pushNamed(context, '/result',
-                          arguments: kartuKeluarga);
-                    }
-                  },
-                  child: Container(
-                    height: 100,
-                    margin: const EdgeInsets.only(bottom: 26),
-                    child: Row(
+      body: FutureBuilder<List<Hasil>>(
+        future: firestoreHistory.getRiwayat(),
+        builder: (BuildContext context, AsyncSnapshot<List<Hasil>> snapshot) {
+          return Stack(
+            children: [
+              const Positioned(
+                child: TitleWidget(),
+              ),
+              Positioned(
+                top: 92,
+                left: 26,
+                right: 26,
+                bottom: 72,
+                child: _buildContent(snapshot),
+              ),
+              const Positioned(
+                child: FooterWidget(),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildContent(AsyncSnapshot<List<Hasil>> snapshot) {
+    if (snapshot.hasData) {
+      return ListView.builder(
+        itemCount: snapshot.data!.length,
+        itemBuilder: (context, index) {
+          final hasil = snapshot.data![index];
+          final gambar = hasil.gambar!;
+          final kartuKeluarga = hasil.kartuKeluarga!;
+          return InkWell(
+            onTap: () {
+              if (validId.contains(kartuKeluarga.idKK)) {
+                Navigator.pushNamed(context, '/result',
+                    arguments: hasil);
+              }
+            },
+            child: Container(
+              height: 100,
+              margin: const EdgeInsets.only(bottom: 26),
+              child: Row(
+                children: [
+                  Hero(
+                    tag: '${gambar.idGambar}',
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFFFFFF),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                          gambar.lokasiFile.toString(),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 22),
+                  Expanded(
+                    child: Stack(
+                      alignment: Alignment.bottomRight,
                       children: [
                         Hero(
-                          tag: 'gambarKK-${kartuKeluarga.id}',
+                          tag: 'textKK',
                           child: Container(
-                            width: 100,
                             height: 100,
                             decoration: BoxDecoration(
                               color: const Color(0xFFFFFFFF),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Image.asset(
-                                kartuKeluarga.gambar,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                            alignment: Alignment.center,
+                            child: _buildTextOrIcon(kartuKeluarga),
                           ),
                         ),
-                        const SizedBox(width: 22),
-                        Expanded(
-                          child: Stack(
-                            alignment: Alignment.bottomRight,
-                            children: [
-                              Hero(
-                                tag: 'textKK-${kartuKeluarga.id}',
-                                child: Container(
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFFFFFFFF),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: validId.contains(kartuKeluarga.id)
-                                      ? SelectableText(
-                                          kartuKeluarga.teks,
-                                          style: const TextStyle(
-                                            color: Color(0xFF252525),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        )
-                                      : InkWell(
-                                          onTap: () {
-                                            showInvalidMessage();
-                                          },
-                                          child: Image.asset(
-                                            'assets/error_icon.png',
-                                            width: 36,
-                                            height: 36,
-                                          ),
-                                        ),
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  showConfirmationDelete(kartuKeluarga.id);
-                                },
-                                child: Image.asset(
-                                  'assets/delete_icon.png',
-                                  width: 36,
-                                  height: 36,
-                                ),
-                              ),
-                            ],
+                        InkWell(
+                          onTap: () =>
+                              showConfirmationDelete(kartuKeluarga.idKK!),
+                          child: Image.asset(
+                            'assets/delete_icon.png',
+                            width: 36,
+                            height: 36,
                           ),
                         ),
                       ],
                     ),
                   ),
-                );
-              },
+                ],
+              ),
             ),
-          ),
-          const Positioned(
-            child: FooterWidget(),
-          ),
-        ],
-      ),
-    );
+          );
+        },
+      );
+    } else if (snapshot.hasError) {
+      return Center(child: Text('Terjadi kesalahan: ${snapshot.error}'));
+    } else {
+      return const Center(child: CircularProgressIndicator());
+    }
+  }
+
+  Widget _buildTextOrIcon(KartuKeluarga kartuKeluarga) {
+    return validId.contains(kartuKeluarga.idKK)
+        ? SelectableText(
+            kartuKeluarga.noKK.toString(),
+            style: const TextStyle(
+              color: Color(0xFF252525),
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          )
+        : InkWell(
+            onTap: () => showInvalidMessage(),
+            child: Image.asset(
+              'assets/error_icon.png',
+              width: 36,
+              height: 36,
+            ),
+          );
   }
 }
