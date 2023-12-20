@@ -5,9 +5,7 @@ class InformasiAkun extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser!;
 
   Widget listAkun(BuildContext context,
-      {required String hintText,
-      required String rightText,
-      required String route}) {
+      {required String hintText, required String rightText}) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       child: Container(
@@ -19,25 +17,20 @@ class InformasiAkun extends StatelessWidget {
           ),
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
-        child: InkWell(
-          onTap: () {
-            Navigator.pushNamed(context, route);
-          },
-          child: ListTile(
-            title: Text(
-              hintText,
-              style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400),
-            ),
-            trailing: Text(
-              rightText,
-              style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400),
-            ),
+        child: ListTile(
+          title: Text(
+            hintText,
+            style: TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontSize: 12,
+                fontWeight: FontWeight.w400),
+          ),
+          trailing: Text(
+            rightText,
+            style: TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontSize: 12,
+                fontWeight: FontWeight.w400),
           ),
         ),
       ),
@@ -68,12 +61,12 @@ class InformasiAkun extends StatelessWidget {
         padding: EdgeInsets.all(5),
         child: Column(
           children: [
-            SizedBox(height: 40),
-            listAkun(context,
-                hintText: 'Surel', rightText: user.email!, route: '/#'),
-            SizedBox(height: 40),
-            listAkun(context,
-                hintText: 'Kata Sandi', rightText: '*******', route: '/#'),
+            SizedBox(height: 30),
+            listAkun(context, hintText: 'Email', rightText: user.email!),
+            SizedBox(height: 10),
+            listAkun(context, hintText: 'Nama Pengguna', rightText: 'User'),
+            SizedBox(height: 10),
+            listAkun(context, hintText: 'Kata Sandi', rightText: '*******'),
           ],
         ),
       ),
