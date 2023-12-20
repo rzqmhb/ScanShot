@@ -40,13 +40,7 @@ class _FormPageState extends State<FormPage> {
                   children: <Widget>[
                     FormWidget(kartuKeluarga: kartuKeluarga),
                     const SizedBox(height: 20),
-                    const MemberFormWidget(),
-                    // ListView.builder(
-                    //   itemCount: anggota.length,
-                    //   itemBuilder: (context, index) {
-                    //     return MemberFormWidget(member: anggota[index]);
-                    //   },
-                    // ),
+                    // MemberFormWidget(anggotaKeluarga: anggota),
                   ],
                 ),
               ),
