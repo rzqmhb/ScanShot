@@ -2,7 +2,8 @@ class AnggotaKeluarga {
   int? nik;
   String? namaLengkap;
   String? jenisKelamin;
-  DateTime? tanggalLahir;
+  String? tempatLahir;
+  String? tanggalLahir;
   String? agama;
   String? jenisPekerjaan;
   String? statusPerkawinan;
@@ -17,6 +18,7 @@ class AnggotaKeluarga {
     this.nik,
     this.namaLengkap,
     this.jenisKelamin,
+    this.tempatLahir,
     this.tanggalLahir,
     this.agama,
     this.jenisPekerjaan,
