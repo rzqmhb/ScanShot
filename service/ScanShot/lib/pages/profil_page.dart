@@ -73,6 +73,7 @@ class ProfilePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
+        height: MediaQuery.of(context).size.height,
         alignment: Alignment.topCenter,
         padding: EdgeInsets.all(5),
         child: Column(
@@ -108,7 +109,7 @@ class ProfilePage extends StatelessWidget {
                 icon: Icons.help_outline,
                 trailingIcon: Icons.arrow_right,
                 route: '/help'),
-            SizedBox(height: 200),
+            SizedBox(height: MediaQuery.of(context).size.height/8),
             ElevatedButton(
               onPressed: () {
                 showDialog(

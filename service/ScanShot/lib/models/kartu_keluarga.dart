@@ -13,7 +13,7 @@ class KartuKeluarga {
   String? kecamatan;
   String? kabupatenKota;
   String? provinsi;
-  DateTime? tanggalDikeluarkan;
+  String? tanggalDikeluarkan;
   String? kepalaDinas;
   int? nipKepalaDinas;
   List<AnggotaKeluarga> anggotaKeluarga;

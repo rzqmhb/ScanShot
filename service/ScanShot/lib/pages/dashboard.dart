@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scanshot/models/hasil.dart';
 import 'package:scanshot/models/keluarga_kartu.dart';
+import 'package:scanshot/models/firestore_history.dart';
 import 'package:scanshot/widget/footer.dart';
 import 'package:scanshot/widget/title.dart';
 
@@ -12,6 +13,18 @@ class DashboardPage extends StatefulWidget {
 }
 
 class DashboardPageState extends State<DashboardPage> {
+  FirestoreHistory firestoreHistory = FirestoreHistory();
+
+  late Future<List<dynamic>> data;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      data = firestoreHistory.getRiwayat();
+    });
+  }
+
   final List<int> validId = [1, 2];
 
   final List<KeluargaKartu> kk = [

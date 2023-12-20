@@ -27,7 +27,7 @@ Future main() async {
   );
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: AuthPage(),
+    home: const AuthPage(),
     theme: ThemeData(
       scaffoldBackgroundColor: const Color(0xFF252525),
     ),

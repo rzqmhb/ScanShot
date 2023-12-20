@@ -25,23 +25,29 @@ class _FormPageState extends State<FormPage> {
           ),
         ),
       ),
-      body: const Stack(
+      body: Stack(
         children: [
           Positioned(
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.only(bottom: 128.0),
+                padding: const EdgeInsets.only(bottom: 128.0),
                 child: Column(
                   children: <Widget>[
                     FormWidget(),
-                    SizedBox(height: 20),
-                    MemberFormWidget(),
+                    const SizedBox(height: 20),
+                    const MemberFormWidget(),
+                    // ListView.builder(
+                    //   itemCount: members.length,
+                    //   itemBuilder: (context, index) {
+                    //     return MemberFormWidget(member: members[index]);
+                    //   },
+                    // ),
                   ],
                 ),
               ),
             ),
           ),
-          Positioned(
+          const Positioned(
             child: FooterWidget(),
           ),
         ],
