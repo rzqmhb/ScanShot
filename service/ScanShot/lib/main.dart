@@ -1,7 +1,7 @@
 // import 'dart:js';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:scanshot/pages/account_pages/account_information.dart';
+import 'package:scanshot/pages/account_information.dart';
 import 'package:scanshot/pages/auth_page.dart';
 import 'package:scanshot/pages/form_page.dart';
 import 'package:scanshot/pages/image_page.dart';
@@ -65,7 +65,7 @@ Future main() async {
         case '/help':
           return PageTransition(
             child: HelpPage(),
-            type: PageTransitionType.bottomToTop,
+            type: PageTransitionType.fade,
             settings: settings,
           );
         case '/scanPreview':
@@ -89,7 +89,7 @@ Future main() async {
         case '/informasiAkun':
           return PageTransition(
             child: InformasiAkun(),
-            type: PageTransitionType.bottomToTop,
+            type: PageTransitionType.fade,
             settings: settings,
           );
         case '/form':
@@ -100,7 +100,9 @@ Future main() async {
           );
         case '/image':
           return PageTransition(
-            child: const ImageResultScreen(imagePath: '',),
+            child: const ImageResultScreen(
+              imagePath: '',
+            ),
             type: PageTransitionType.topToBottom,
             settings: settings,
           );

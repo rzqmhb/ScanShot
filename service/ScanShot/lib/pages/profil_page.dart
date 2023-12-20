@@ -61,7 +61,7 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: Color.fromRGBO(37, 37, 37, 1),
         leading: InkWell(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushNamed(context as BuildContext, '/');
             },
             child: Icon(
               Icons.arrow_back,
