@@ -82,7 +82,7 @@ class ProfilePage extends StatelessWidget {
             UserImage(),
             SizedBox(height: 10),
             Text(
-              'Hello ${user.displayName}',
+              ' ${user.displayName ?? 'user'}',
               style: TextStyle(
                   fontSize: 16, color: Color.fromRGBO(166, 166, 166, 1)),
               textAlign: TextAlign.center,

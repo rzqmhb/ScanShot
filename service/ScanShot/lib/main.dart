@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:scanshot/pages/account_information.dart';
 import 'package:scanshot/pages/auth_page.dart';
+import 'package:scanshot/pages/change_password.dart';
+import 'package:scanshot/pages/change_username.dart';
 import 'package:scanshot/pages/form_page.dart';
 import 'package:scanshot/pages/image_page.dart';
 import 'firebase_options.dart';
@@ -89,6 +91,18 @@ Future main() async {
         case '/informasiAkun':
           return PageTransition(
             child: InformasiAkun(),
+            type: PageTransitionType.fade,
+            settings: settings,
+          );
+        case '/gantiUsername':
+          return PageTransition(
+            child: GantiUsername(),
+            type: PageTransitionType.fade,
+            settings: settings,
+          );
+        case '/gantiPassword':
+          return PageTransition(
+            child: GantiPassword(),
             type: PageTransitionType.fade,
             settings: settings,
           );
