@@ -25,7 +25,6 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pushNamed(context, '/');
     });
     // Pop Loading
-    Navigator.pushNamed(context, '/');
   }
 
   bool isLoading = false;
@@ -158,7 +157,6 @@ class _LoginPageState extends State<LoginPage> {
                     setState(() {
                       isLoading = false;
                     });
-                    Navigator.pushNamed(context, '/');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFFFC60B),
