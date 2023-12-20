@@ -168,8 +168,7 @@ class DashboardPageState extends State<DashboardPage> {
           return InkWell(
             onTap: () {
               if (validId.contains(kartuKeluarga.idKK)) {
-                Navigator.pushNamed(context, '/result',
-                    arguments: hasil);
+                Navigator.pushNamed(context, '/result', arguments: hasil);
               }
             },
             child: Container(
@@ -201,7 +200,7 @@ class DashboardPageState extends State<DashboardPage> {
                       alignment: Alignment.bottomRight,
                       children: [
                         Hero(
-                          tag: 'textKK',
+                          tag: '${kartuKeluarga.idKK}',
                           child: Container(
                             height: 100,
                             decoration: BoxDecoration(
@@ -238,9 +237,17 @@ class DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildTextOrIcon(KartuKeluarga kartuKeluarga) {
+    String textKartuKeluarga =
+        "Kartu Keluarga\nNo.K: ${kartuKeluarga.noK}\nNo.KK: ${kartuKeluarga.noKK}\nKepala Keluarga: ${kartuKeluarga.kepalaKeluarga}\nAlamat: ${kartuKeluarga.alamat}\nRT/RW: ${kartuKeluarga.rt}/${kartuKeluarga.rw}\nKode Pos: ${kartuKeluarga.kodePos}\nDesa/Kelurahan: ${kartuKeluarga.desaKelurahan}\nKecamatan: ${kartuKeluarga.kecamatan}\nKabupaten/Kota: ${kartuKeluarga.kabupatenKota}\nProvinsi: ${kartuKeluarga.provinsi}\nTanggal Dikeluarkan: ${kartuKeluarga.tanggalDikeluarkan}\nKepala Dinas: ${kartuKeluarga.kepalaDinas}\nNIP Kepala Dinas: ${kartuKeluarga.nipKepalaDinas}\n\nAnggota Keluarga\n";
+
+    for (var anggotaKeluarga in kartuKeluarga.anggotaKeluarga) {
+      String anggotaText =
+          "NIK: ${anggotaKeluarga.nik}\n\nNama Lengkap: ${anggotaKeluarga.namaLengkap}\nJenis Kelamin: ${anggotaKeluarga.jenisKelamin}\nTempat Lahir: ${anggotaKeluarga.tempatLahir}\n Tanggal Lahir: ${anggotaKeluarga.tanggalLahir}\nAgama: ${anggotaKeluarga.agama}\nJenis Pekerjaan: ${anggotaKeluarga.jenisPekerjaan}\nStatus Perkawinan: ${anggotaKeluarga.statusPerkawinan}\nKewarganegaraan: ${anggotaKeluarga.kewarganegaraan}\nNo.Paspor: ${anggotaKeluarga.noPaspor}\nNo.Kitap: ${anggotaKeluarga.noKitap}\nAyah: ${anggotaKeluarga.ayah}\nIbu: ${anggotaKeluarga.ibu}\n\n";
+      textKartuKeluarga += anggotaText;
+    }
     return validId.contains(kartuKeluarga.idKK)
         ? SelectableText(
-            kartuKeluarga.noKK.toString(),
+            textKartuKeluarga,
             style: const TextStyle(
               color: Color(0xFF252525),
               fontSize: 16,

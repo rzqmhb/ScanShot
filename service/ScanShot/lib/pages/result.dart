@@ -17,6 +17,15 @@ class ResultPage extends StatelessWidget {
     final gambar = hasil.gambar!;
     final kartuKeluarga = hasil.kartuKeluarga!;
 
+    String textKartuKeluarga =
+        "Kartu Keluarga\nNo.K: ${kartuKeluarga.noK}\nNo.KK: ${kartuKeluarga.noKK}\nKepala Keluarga: ${kartuKeluarga.kepalaKeluarga}\nAlamat: ${kartuKeluarga.alamat}\nRT/RW: ${kartuKeluarga.rt}/${kartuKeluarga.rw}\nKode Pos: ${kartuKeluarga.kodePos}\nDesa/Kelurahan: ${kartuKeluarga.desaKelurahan}\nKecamatan: ${kartuKeluarga.kecamatan}\nKabupaten/Kota: ${kartuKeluarga.kabupatenKota}\nProvinsi: ${kartuKeluarga.provinsi}\nTanggal Dikeluarkan: ${kartuKeluarga.tanggalDikeluarkan}\nKepala Dinas: ${kartuKeluarga.kepalaDinas}\nNIP Kepala Dinas: ${kartuKeluarga.nipKepalaDinas}\n\nAnggota Keluarga\n";
+
+    for (var anggotaKeluarga in kartuKeluarga.anggotaKeluarga) {
+      String anggotaText =
+          "NIK: ${anggotaKeluarga.nik}\n\nNama Lengkap: ${anggotaKeluarga.namaLengkap}\nJenis Kelamin: ${anggotaKeluarga.jenisKelamin}\nTempat Lahir: ${anggotaKeluarga.tempatLahir}\n Tanggal Lahir: ${anggotaKeluarga.tanggalLahir}\nAgama: ${anggotaKeluarga.agama}\nJenis Pekerjaan: ${anggotaKeluarga.jenisPekerjaan}\nStatus Perkawinan: ${anggotaKeluarga.statusPerkawinan}\nKewarganegaraan: ${anggotaKeluarga.kewarganegaraan}\nNo.Paspor: ${anggotaKeluarga.noPaspor}\nNo.Kitap: ${anggotaKeluarga.noKitap}\nAyah: ${anggotaKeluarga.ayah}\nIbu: ${anggotaKeluarga.ibu}\n\n";
+      textKartuKeluarga += anggotaText;
+    }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -90,7 +99,7 @@ class ResultPage extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: SelectableText(
-                                kartuKeluarga.noKK.toString(),
+                                textKartuKeluarga,
                                 style: const TextStyle(
                                   color: Color(0xFF252525),
                                   fontSize: 16,
@@ -102,13 +111,7 @@ class ResultPage extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            // Clipboard.setData(ClipboardData(text: kk.teks));
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   const SnackBar(
-                            //     content: Text('Seluruh Teks Disalin'),
-                            //   ),
-                            // );
-                            Navigator.pushNamed(context, '/form');
+                            Navigator.pushNamed(context, '/form', arguments: kartuKeluarga);
                           },
                           child: Image.asset(
                             'assets/form_icon.png',
