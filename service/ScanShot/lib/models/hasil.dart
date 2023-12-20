@@ -4,11 +4,11 @@ import 'package:scanshot/models/kartu_keluarga.dart';
 class Hasil {
   int? idHasil;
   Gambar? gambar;
-  KartuKeluarga? kk;
+  KartuKeluarga? kartuKeluarga;
 
   Hasil({
     this.idHasil,
     this.gambar,
-    this.kk,
+    this.kartuKeluarga,
   });
 }

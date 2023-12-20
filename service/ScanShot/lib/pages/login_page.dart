@@ -17,6 +17,15 @@ class _LoginPageState extends State<LoginPage> {
   bool isLoading = false;
 
   void _login() async {
+    // Proses login
+//     await FirebaseAuth.instance
+//         .signInWithEmailAndPassword(
+//             email: emailController.text, password: _passwordController.text)
+//         .then((value) {
+//       Navigator.pushNamed(context, '/');
+//     });
+    // Pop Loading
+    
     String email = emailController.text;
     String password = _passwordController.text;
 
@@ -221,7 +230,59 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-              ),
+
+                // Memberi jarak
+                const SizedBox(height: 20),
+
+                // Menambahkan button login dan mengarahkan ke laman berikutnya
+                ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    _login();
+                    await Future.delayed(Duration(seconds: 2));
+                    setState(() {
+                      isLoading = false;
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFFFC60B),
+                  ),
+                  child: const Text(
+                    'Masuk',
+                    style: TextStyle(color: Color(0xFF252525)),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+
+                // Memberi jarak
+                const SizedBox(height: 20),
+
+                const Text(
+                  'Belum punya akun?',
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+
+                // Memberi jarak
+                const SizedBox(height: 10),
+
+                // Membuat teks 'Daftar disinii' agar dapat menuju laman lain
+                InkWell(
+                  onTap: _navigateToRegister,
+                  child: const Text(
+                    'Daftar disini',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Inter',
+                      color: Color(0xFFFFC60B),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ],
+              //),
             ),
           );
   }
