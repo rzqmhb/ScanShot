@@ -67,8 +67,10 @@ class FirestoreHistory {
                   String tempatLahir = data['tempatLahir'];
                   String tanggalLahir = data['tanggalLahir'];
                   String agama = data['agama'];
+                  String pendidikan = data['pendidikan'];
                   String jenisPekerjaan = data['jenisPekerjaan'];
                   String statusPerkawinan = data['statusPerkawinan'];
+                  String statusHubungan = data['statusHubungan'];
                   String kewarganegaraan = data['kewarganegaraan'];
                   int noPaspor = data['noPaspor'];
                   int noKitap = data['noKitap'];
@@ -82,8 +84,10 @@ class FirestoreHistory {
                       tempatLahir: tempatLahir,
                       tanggalLahir: tanggalLahir,
                       agama: agama,
+                      pendidikan: pendidikan,
                       jenisPekerjaan: jenisPekerjaan,
                       statusPerkawinan: statusPerkawinan,
+                      statusHubungan: statusHubungan,
                       kewarganegaraan: kewarganegaraan,
                       noPaspor: noPaspor,
                       noKitap: noKitap,
