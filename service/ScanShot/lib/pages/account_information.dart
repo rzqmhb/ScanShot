@@ -5,36 +5,42 @@ class InformasiAkun extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser!;
 
   Widget listAkun(BuildContext context,
-      {required String hintText, required String rightText}) {
+      {required String hintText,
+      required String rightText,
+      required String route}) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Color.fromRGBO(73, 73, 73, 1),
-          border: Border.all(
-            color: Color.fromRGBO(110, 110, 110, 1),
-            width: 1.0,
+        padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(73, 73, 73, 1),
+            border: Border.all(
+              color: Color.fromRGBO(110, 110, 110, 1),
+              width: 1.0,
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        ),
-        child: ListTile(
-          title: Text(
-            hintText,
-            style: TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontSize: 12,
-                fontWeight: FontWeight.w400),
+          child: InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, route);
+            },
+            child: ListTile(
+              title: Text(
+                hintText,
+                style: TextStyle(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400),
+              ),
+              trailing: Text(
+                rightText,
+                style: TextStyle(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400),
+              ),
+            ),
           ),
-          trailing: Text(
-            rightText,
-            style: TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontSize: 12,
-                fontWeight: FontWeight.w400),
-          ),
-        ),
-      ),
-    );
+        ));
   }
 
   @override
@@ -62,12 +68,18 @@ class InformasiAkun extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 30),
-            listAkun(context, hintText: 'Email', rightText: user.email!),
+            listAkun(context,
+                hintText: 'Email', rightText: user.email!, route: '#'),
             SizedBox(height: 10),
             listAkun(context,
-                hintText: 'Nama Pengguna', rightText: '${user.displayName}'),
+                hintText: 'Nama Pengguna',
+                rightText: '${user.displayName ?? 'user'}',
+                route: '/gantiUsername'),
             SizedBox(height: 10),
-            listAkun(context, hintText: 'Kata Sandi', rightText: '*******'),
+            listAkun(context,
+                hintText: 'Kata Sandi',
+                rightText: '*******',
+                route: '/gantiPassword'),
           ],
         ),
       ),
