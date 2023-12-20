@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
 
 class FormWidget extends StatelessWidget {
-  const FormWidget({super.key});
+  FormWidget({super.key});
+
+  final TextEditingController noKK = TextEditingController();
+  final TextEditingController noK = TextEditingController();
+  final TextEditingController kepalaKeluarga = TextEditingController();
+  final TextEditingController alamat = TextEditingController();
+  final TextEditingController rt = TextEditingController();
+  final TextEditingController rw = TextEditingController();
+  final TextEditingController kodePos = TextEditingController();
+  final TextEditingController desaKelurahan = TextEditingController();
+  final TextEditingController kecamatan = TextEditingController();
+  final TextEditingController kabupatenKota = TextEditingController();
+  final TextEditingController provinsi = TextEditingController();
+  final TextEditingController tanggalDikeluarkan = TextEditingController();
+  final TextEditingController kepalaDinas = TextEditingController();
+  final TextEditingController nipKepalaDinas = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +58,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: noKK,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -68,6 +84,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: noK,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -93,6 +110,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: kepalaKeluarga,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -118,6 +136,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: alamat,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -133,7 +152,7 @@ class FormWidget extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'RT/RW',
+                      'RT',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
@@ -143,6 +162,33 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: rt,
+                  decoration: const InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 0.5),
+                    ),
+                  ),
+                  style: const TextStyle(color: Colors.black),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 16.0, bottom: 8.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'RW',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                TextFormField(
+                  controller: rw,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -168,6 +214,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: kodePos,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -193,6 +240,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: desaKelurahan,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -218,6 +266,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: kabupatenKota,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -243,6 +292,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: provinsi,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -268,6 +318,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: tanggalDikeluarkan,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -293,6 +344,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: kepalaDinas,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -318,6 +370,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: nipKepalaDinas,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
