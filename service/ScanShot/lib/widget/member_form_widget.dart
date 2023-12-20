@@ -98,6 +98,7 @@ class _MemberFormWidgetState extends State<MemberFormWidget> {
   Widget build(BuildContext context) {
     return ListView.builder(
         itemCount: anggota.length,
+        shrinkWrap: true,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(top: 8.0),
