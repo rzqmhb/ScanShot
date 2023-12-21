@@ -15,14 +15,17 @@ class DashboardPage extends StatefulWidget {
 class DashboardPageState extends State<DashboardPage> {
   FirestoreHistory firestoreHistory = FirestoreHistory();
 
+  late Future<List<Hasil>> initHasil;
+
   @override
   void initState() {
     super.initState();
+    initHasil = firestoreHistory.getRiwayat();
   }
 
   void removeKartuKeluarga(int id) {
     setState(() {
-      // kk.removeWhere((kartu) => kartu.id == id);
+      initHasil = firestoreHistory.deleteHasil(id);
     });
   }
 
@@ -71,7 +74,7 @@ class DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<List<Hasil>>(
-        future: firestoreHistory.getRiwayat(),
+        future: initHasil,
         builder: (BuildContext context, AsyncSnapshot<List<Hasil>> snapshot) {
           return Stack(
             children: [
@@ -150,9 +153,47 @@ class DashboardPageState extends State<DashboardPage> {
                             child: _buildTextOrIcon(kartuKeluarga),
                           ),
                         ),
-                        InkWell(
-                          onTap: () =>
-                              showConfirmationDelete(kartuKeluarga.idKK),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                          ),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Konfirmasi Hapus Riwayat'),
+                                  content: const Text(
+                                      'Apakah Anda yakin ingin menghapus riwayat ini?'),
+                                  titleTextStyle:
+                                      const TextStyle(color: Colors.white),
+                                  contentTextStyle:
+                                      const TextStyle(color: Colors.white),
+                                  backgroundColor: const Color(0xFF252525),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text(
+                                        'Batal',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: const Text(
+                                        'Hapus',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        removeKartuKeluarga(hasil.idHasil!);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
                           child: Image.asset(
                             'assets/delete_icon.png',
                             width: 36,

@@ -18,9 +18,10 @@ class _SplashState extends State<Splash> {
     await Future.delayed(Duration(seconds: 3), () {});
     // Navigator.pushNamed(context, '/login');
     if (!mounted) {
-      return;
+      // return;
+      Navigator.of(context).pushNamedAndRemoveUntil('/auth', (route) => false);
     } else {
-      Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil('/auth', (route) => false);
     }
   }
 
