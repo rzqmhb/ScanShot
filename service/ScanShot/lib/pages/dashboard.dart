@@ -153,8 +153,47 @@ class DashboardPageState extends State<DashboardPage> {
                             child: _buildTextOrIcon(kartuKeluarga),
                           ),
                         ),
-                        InkWell(
-                          onTap: () => showConfirmationDelete(hasil.idHasil!),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                          ),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Konfirmasi Hapus Riwayat'),
+                                  content: const Text(
+                                      'Apakah Anda yakin ingin menghapus riwayat ini?'),
+                                  titleTextStyle:
+                                      const TextStyle(color: Colors.white),
+                                  contentTextStyle:
+                                      const TextStyle(color: Colors.white),
+                                  backgroundColor: const Color(0xFF252525),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text(
+                                        'Batal',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: const Text(
+                                        'Hapus',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        removeKartuKeluarga(hasil.idHasil!);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
                           child: Image.asset(
                             'assets/delete_icon.png',
                             width: 36,
