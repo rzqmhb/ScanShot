@@ -14,14 +14,14 @@ class AuthPage extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           WidgetsBinding.instance!.addPostFrameCallback((_) {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => DashboardPage()),
             );
           });
         } else {
           WidgetsBinding.instance!.addPostFrameCallback((_) {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => Splash()),
             );
