@@ -31,10 +31,9 @@ class _RegisterPageState extends State<RegisterPage> {
   void _register() async {
     // Proses register
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text, 
-        password: passwordController.text
-      );
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text);
       User? user = userCredential.user;
 
       if (user != null) {
@@ -52,7 +51,7 @@ class _RegisterPageState extends State<RegisterPage> {
           'username': usernameController.text,
           'photoURL': url,
         });
-        
+
         Navigator.pushNamed(context, '/');
       }
     } on FirebaseAuthException catch (e) {
@@ -89,89 +88,119 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-Future getImage(ImageSource media) async {
-  var img = await picker.pickImage(source: media);
-  setState(() {
-    image = img;
-  });
-}
+  Future getImage(ImageSource media) async {
+    var img = await picker.pickImage(source: media);
+    setState(() {
+      image = img;
+    });
+  }
 
-void uploadDialog() {
-  showDialog(
-    context: context, 
-    builder: (BuildContext context) {
-      return AlertDialog(
-        backgroundColor: Colors.grey.shade800,
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-        title: const Text('Unggah Dari', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),),
-        content: Container(
-          height: MediaQuery.of(context).size.height / 9,
-          margin: const EdgeInsets.only(top: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  getImage(ImageSource.gallery);
-                },
-                child: const Column(
-                  children: [
-                    Icon(Icons.image, size: 50.0, color: Colors.white,),
-                    Text('Galeri', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400),)
-                  ],
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  getImage(ImageSource.camera);
-                },
-                child: const Column(
-                  children: [
-                    Icon(Icons.camera_alt, size: 50.0, color: Colors.white,),
-                    Text('Kamera', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400),)
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-  );
-}
-
-Widget uploadField() {
-  return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-    decoration: BoxDecoration(
-      borderRadius: const BorderRadius.all(Radius.circular(10)),
-      border: Border.all(color: const Color.fromARGB(255, 255, 198, 11), width: 2.0),
-    ),
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(image == null ? 'Tidak ada berkas' : image!.name, style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w400),),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 198, 11)),
-            onPressed: () {
-              uploadDialog();
-            },
-            child: const Text(
-              'Pilih Berkas',
-              style: TextStyle(
-                color: Colors.black, fontSize: 12.0, fontWeight: FontWeight.w700
+  void uploadDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.grey.shade800,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15))),
+            title: const Text(
+              'Unggah Dari',
+              textAlign: TextAlign.center,
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            ),
+            content: Container(
+              height: MediaQuery.of(context).size.height / 9,
+              margin: const EdgeInsets.only(top: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.gallery);
+                    },
+                    child: const Column(
+                      children: [
+                        Icon(
+                          Icons.image,
+                          size: 50.0,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          'Galeri',
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.w400),
+                        )
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.camera);
+                    },
+                    child: const Column(
+                      children: [
+                        Icon(
+                          Icons.camera_alt,
+                          size: 50.0,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          'Kamera',
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.w400),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+          );
+        });
+  }
+
+  Widget uploadField() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        border: Border.all(
+            color: const Color.fromARGB(255, 255, 198, 11), width: 2.0),
       ),
-    ),
-  );
-}
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              image == null ? 'Tidak ada berkas' : image!.name,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 255, 198, 11)),
+              onPressed: () {
+                uploadDialog();
+              },
+              child: const Text(
+                'Pilih Berkas',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w700),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget icon = Image.asset(
     'assets/images/registerIcon.png',
@@ -211,12 +240,10 @@ Widget uploadField() {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)
-            ),
+                borderRadius: BorderRadius.circular(10.0)),
             padding: EdgeInsets.symmetric(horizontal: 40),
             fixedSize: Size(800, 35),
-            backgroundColor: Color.fromARGB(255, 255, 198, 11)
-        ),
+            backgroundColor: Color.fromARGB(255, 255, 198, 11)),
         onPressed: isChecked
             ? () async {
                 setState(() {

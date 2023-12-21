@@ -1,22 +1,108 @@
 import 'package:flutter/material.dart';
+import 'package:scanshot/models/kartu_keluarga.dart';
 
-class FormWidget extends StatelessWidget {
-  FormWidget({super.key});
+class FormWidget extends StatefulWidget {
+  final KartuKeluarga kartuKeluarga;
 
+  const FormWidget({super.key, required this.kartuKeluarga});
+
+  @override
+  State<FormWidget> createState() => _FormWidgetState();
+}
+
+class _FormWidgetState extends State<FormWidget> {
   final TextEditingController noKK = TextEditingController();
+
   final TextEditingController noK = TextEditingController();
+
   final TextEditingController kepalaKeluarga = TextEditingController();
+
   final TextEditingController alamat = TextEditingController();
+
   final TextEditingController rt = TextEditingController();
+
   final TextEditingController rw = TextEditingController();
+
   final TextEditingController kodePos = TextEditingController();
+
   final TextEditingController desaKelurahan = TextEditingController();
+
   final TextEditingController kecamatan = TextEditingController();
+
   final TextEditingController kabupatenKota = TextEditingController();
+
   final TextEditingController provinsi = TextEditingController();
+
   final TextEditingController tanggalDikeluarkan = TextEditingController();
+
   final TextEditingController kepalaDinas = TextEditingController();
+
   final TextEditingController nipKepalaDinas = TextEditingController();
+
+  @override
+  void dispose() {
+    noKK.dispose();
+
+    noK.dispose();
+
+    kepalaKeluarga.dispose();
+
+    alamat.dispose();
+
+    rt.dispose();
+
+    rw.dispose();
+
+    kodePos.dispose();
+
+    desaKelurahan.dispose();
+
+    kecamatan.dispose();
+
+    kabupatenKota.dispose();
+
+    provinsi.dispose();
+
+    tanggalDikeluarkan.dispose();
+
+    kepalaDinas.dispose();
+
+    nipKepalaDinas.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    noKK.text = widget.kartuKeluarga.noKK.toString();
+
+    noK.text = widget.kartuKeluarga.noK.toString();
+
+    kepalaKeluarga.text = widget.kartuKeluarga.kepalaKeluarga.toString();
+
+    alamat.text = widget.kartuKeluarga.alamat.toString();
+
+    rt.text = widget.kartuKeluarga.rt.toString();
+
+    rw.text = widget.kartuKeluarga.rw.toString();
+
+    kodePos.text = widget.kartuKeluarga.kodePos.toString();
+
+    desaKelurahan.text = widget.kartuKeluarga.desaKelurahan.toString();
+
+    kecamatan.text = widget.kartuKeluarga.kecamatan.toString();
+
+    kabupatenKota.text = widget.kartuKeluarga.kabupatenKota.toString();
+
+    provinsi.text = widget.kartuKeluarga.provinsi.toString();
+
+    tanggalDikeluarkan.text =
+        widget.kartuKeluarga.tanggalDikeluarkan.toString();
+
+    kepalaDinas.text = widget.kartuKeluarga.kepalaDinas.toString();
+
+    nipKepalaDinas.text = widget.kartuKeluarga.nipKepalaDinas.toString();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

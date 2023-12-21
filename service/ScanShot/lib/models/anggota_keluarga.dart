@@ -1,33 +1,35 @@
 class AnggotaKeluarga {
-  int? nik;
-  String? namaLengkap;
-  String? jenisKelamin;
-  String? tempatLahir;
-  String? tanggalLahir;
-  String? agama;
-  String? jenisPekerjaan;
-  String? statusPerkawinan;
-  String? statusHubungan;
-  String? kewarganegaraan;
-  int? noPaspor;
-  int? noKitap;
-  String? ayah;
-  String? ibu;
+  int nik = 0;
+  String namaLengkap = "";
+  String jenisKelamin = "";
+  String tempatLahir = "";
+  String tanggalLahir = "";
+  String agama = "";
+  String pendidikan = "";
+  String jenisPekerjaan = "";
+  String statusPerkawinan = "";
+  String statusHubungan = "";
+  String kewarganegaraan = "";
+  int noPaspor = 0;
+  int noKitap = 0;
+  String ayah = "";
+  String ibu = "";
 
   AnggotaKeluarga({
-    this.nik,
-    this.namaLengkap,
-    this.jenisKelamin,
-    this.tempatLahir,
-    this.tanggalLahir,
-    this.agama,
-    this.jenisPekerjaan,
-    this.statusPerkawinan,
-    this.statusHubungan,
-    this.kewarganegaraan,
-    this.noPaspor,
-    this.noKitap,
-    this.ayah,
-    this.ibu,
+    required this.nik,
+    required this.namaLengkap,
+    required this.jenisKelamin,
+    required this.tempatLahir,
+    required this.tanggalLahir,
+    required this.agama,
+    required this.pendidikan,
+    required this.jenisPekerjaan,
+    required this.statusPerkawinan,
+    required this.statusHubungan,
+    required this.kewarganegaraan,
+    required this.noPaspor,
+    required this.noKitap,
+    required this.ayah,
+    required this.ibu,
   });
 }

@@ -82,7 +82,7 @@ class ProfilePage extends StatelessWidget {
             UserImage(),
             SizedBox(height: 10),
             Text(
-              'Hello ' + user.email!,
+              ' ${user.displayName ?? 'user'}',
               style: TextStyle(
                   fontSize: 16, color: Color.fromRGBO(166, 166, 166, 1)),
               textAlign: TextAlign.center,
@@ -94,11 +94,6 @@ class ProfilePage extends StatelessWidget {
                 trailingIcon: Icons.arrow_right,
                 route: '/informasiAkun'),
             listWithIcon(context,
-                hintText: 'Pengaturan',
-                icon: Icons.settings,
-                trailingIcon: Icons.arrow_right,
-                route: '/#'),
-            listWithIcon(context,
                 hintText: 'Penyimpanan Data',
                 icon: Icons.storage,
                 trailingIcon: Icons.arrow_right,
@@ -109,7 +104,7 @@ class ProfilePage extends StatelessWidget {
                 icon: Icons.help_outline,
                 trailingIcon: Icons.arrow_right,
                 route: '/help'),
-            SizedBox(height: MediaQuery.of(context).size.height/8),
+            SizedBox(height: MediaQuery.of(context).size.height / 8),
             ElevatedButton(
               onPressed: () {
                 showDialog(
