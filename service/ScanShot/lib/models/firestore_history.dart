@@ -131,6 +131,6 @@ class FirestoreHistory {
   }
 
   // Future<void> updateFormWidget() {
-    
+
   // }
 }
