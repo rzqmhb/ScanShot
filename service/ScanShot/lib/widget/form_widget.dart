@@ -19,9 +19,7 @@ class _FormWidgetState extends State<FormWidget> {
 
   final TextEditingController alamat = TextEditingController();
 
-  final TextEditingController rt = TextEditingController();
-
-  final TextEditingController rw = TextEditingController();
+  final TextEditingController rtRw = TextEditingController();
 
   final TextEditingController kodePos = TextEditingController();
 
@@ -49,9 +47,7 @@ class _FormWidgetState extends State<FormWidget> {
 
     alamat.dispose();
 
-    rt.dispose();
-
-    rw.dispose();
+    rtRw.dispose();
 
     kodePos.dispose();
 
@@ -81,9 +77,7 @@ class _FormWidgetState extends State<FormWidget> {
 
     alamat.text = widget.kartuKeluarga.alamat.toString();
 
-    rt.text = widget.kartuKeluarga.rt.toString();
-
-    rw.text = widget.kartuKeluarga.rw.toString();
+    rtRw.text = widget.kartuKeluarga.rtRw.toString();
 
     kodePos.text = widget.kartuKeluarga.kodePos.toString();
 
@@ -238,7 +232,7 @@ class _FormWidgetState extends State<FormWidget> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'RT',
+                      'RT/RW',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
@@ -248,33 +242,7 @@ class _FormWidgetState extends State<FormWidget> {
                   ),
                 ),
                 TextFormField(
-                  controller: rt,
-                  decoration: const InputDecoration(
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black, width: 0.5),
-                    ),
-                  ),
-                  style: const TextStyle(color: Colors.black),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 16.0, bottom: 8.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'RW',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                TextFormField(
-                  controller: rw,
+                  controller: rtRw,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
