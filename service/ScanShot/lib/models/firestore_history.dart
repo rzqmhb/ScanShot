@@ -62,9 +62,30 @@ class FirestoreHistory {
     return listData;
   }
 
-  // Future<void> updateFormWidget() {
+  Future<void> deleteHasil(int idHasil) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null && user.email != null) {
+      var snapshot = await history.get();
+      var docs = snapshot.docs;
+      for (var doc in docs) {
+        var data = doc.data();
+        if (data != null && data is Map) {
+          var riwayat = data['riwayat'];
+          if (riwayat is List) {
+            for (var i = 0; i < riwayat.length; i++) {
+              if (riwayat[i] is Map &&
+                  riwayat[i]['email'] == user.email &&
+                  riwayat[i]['hasil']['idHasil'] == idHasil) {
+                riwayat.removeAt(i);
 
-  // }
+                await doc.reference.update({'riwayat': riwayat});
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 
   KartuKeluarga changeToKK(var data) {
     int idKK = data['idKK'] ?? getId;
@@ -72,8 +93,7 @@ class FirestoreHistory {
     int noK = data['noK'] ?? 0;
     String kepalaKeluarga = data['kepalaKeluarga'] ?? "";
     String alamat = data['alamat'] ?? "";
-    int rt = data['rt'] ?? 0;
-    int rw = data['rw'] ?? 0;
+    String rtRw = data['rtRw'] ?? '';
     int kodePos = data['kodePos'];
     String desaKelurahan = data['desaKelurahan'] ?? '-';
     String kecamatan = data['kecamatan'] ?? '-';
@@ -129,8 +149,7 @@ class FirestoreHistory {
         noK: noK,
         kepalaKeluarga: kepalaKeluarga,
         alamat: alamat,
-        rt: rt,
-        rw: rw,
+        rtRw: rtRw,
         kodePos: kodePos,
         desaKelurahan: desaKelurahan,
         kecamatan: kecamatan,
