@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:scanshot/models/keluarga_kartu.dart';
+import 'package:scanshot/models/hasil.dart';
 import 'package:scanshot/widget/footer.dart';
 
 class ResultPage extends StatelessWidget {
@@ -13,7 +13,18 @@ class ResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final kk = ModalRoute.of(context)!.settings.arguments as KeluargaKartu;
+    final hasil = ModalRoute.of(context)!.settings.arguments as Hasil;
+    final gambar = hasil.gambar!;
+    final kartuKeluarga = hasil.kartuKeluarga!;
+
+    String textKartuKeluarga =
+        "Kartu Keluarga\nNo.K: ${kartuKeluarga.noK}\nNo.KK: ${kartuKeluarga.noKK}\nKepala Keluarga: ${kartuKeluarga.kepalaKeluarga}\nAlamat: ${kartuKeluarga.alamat}\nRT/RW: ${kartuKeluarga.rt}/${kartuKeluarga.rw}\nKode Pos: ${kartuKeluarga.kodePos}\nDesa/Kelurahan: ${kartuKeluarga.desaKelurahan}\nKecamatan: ${kartuKeluarga.kecamatan}\nKabupaten/Kota: ${kartuKeluarga.kabupatenKota}\nProvinsi: ${kartuKeluarga.provinsi}\nTanggal Dikeluarkan: ${kartuKeluarga.tanggalDikeluarkan}\nKepala Dinas: ${kartuKeluarga.kepalaDinas}\nNIP Kepala Dinas: ${kartuKeluarga.nipKepalaDinas}\n\nAnggota Keluarga\n";
+
+    for (var anggotaKeluarga in kartuKeluarga.anggotaKeluarga) {
+      String anggotaText =
+          "NIK: ${anggotaKeluarga.nik}\n\nNama Lengkap: ${anggotaKeluarga.namaLengkap}\nJenis Kelamin: ${anggotaKeluarga.jenisKelamin}\nTempat Lahir: ${anggotaKeluarga.tempatLahir}\n Tanggal Lahir: ${anggotaKeluarga.tanggalLahir}\nAgama: ${anggotaKeluarga.agama}\nPendidikan: ${anggotaKeluarga.pendidikan}\nJenis Pekerjaan: ${anggotaKeluarga.jenisPekerjaan}\nStatus Perkawinan: ${anggotaKeluarga.statusPerkawinan}\nStatus Hubungan: ${anggotaKeluarga.statusHubungan}\nKewarganegaraan: ${anggotaKeluarga.kewarganegaraan}\nNo.Paspor: ${anggotaKeluarga.noPaspor}\nNo.Kitap: ${anggotaKeluarga.noKitap}\nAyah: ${anggotaKeluarga.ayah}\nIbu: ${anggotaKeluarga.ibu}\n\n";
+      textKartuKeluarga += anggotaText;
+    }
 
     return Scaffold(
       body: Stack(
@@ -46,7 +57,7 @@ class ResultPage extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       children: [
                         Hero(
-                          tag: 'gambarKK-${kk.id}',
+                          tag: '${gambar.idGambar}',
                           child: Container(
                             decoration: BoxDecoration(
                               color: const Color(0xFFFFFFFF),
@@ -55,7 +66,7 @@ class ResultPage extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
                               child: Image.asset(
-                                kk.gambar,
+                                gambar.lokasiFile.toString(),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -63,7 +74,7 @@ class ResultPage extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            saveImage(kk.gambar);
+                            saveImage(gambar.lokasiFile.toString());
                           },
                           child: Image.asset(
                             'assets/download_icon.png',
@@ -78,7 +89,7 @@ class ResultPage extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       children: [
                         Hero(
-                          tag: 'textKK-${kk.id}',
+                          tag: '${kartuKeluarga.idKK}',
                           child: Container(
                             decoration: BoxDecoration(
                               color: const Color(0xFFFFFFFF),
@@ -88,7 +99,7 @@ class ResultPage extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: SelectableText(
-                                kk.teks,
+                                textKartuKeluarga,
                                 style: const TextStyle(
                                   color: Color(0xFF252525),
                                   fontSize: 16,
@@ -100,13 +111,7 @@ class ResultPage extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            // Clipboard.setData(ClipboardData(text: kk.teks));
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   const SnackBar(
-                            //     content: Text('Seluruh Teks Disalin'),
-                            //   ),
-                            // );
-                            Navigator.pushNamed(context, '/form');
+                            Navigator.pushNamed(context, '/form', arguments: kartuKeluarga);
                           },
                           child: Image.asset(
                             'assets/form_icon.png',
