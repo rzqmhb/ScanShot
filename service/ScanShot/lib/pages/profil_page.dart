@@ -2,13 +2,17 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:scanshot/pages/session_manager.dart';
 import 'package:scanshot/widget/user_image.dart';
 
 class ProfilePage extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser!;
 
-  void _logout() {
-    FirebaseAuth.instance.signOut();
+  void _logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    await SessionManager.clearSession().then((value) {
+      Navigator.pushReplacementNamed(context, '/auth');
+    });
   }
 
   Widget listWithIcon(BuildContext context,
@@ -131,7 +135,9 @@ class ProfilePage extends StatelessWidget {
                             'Logout',
                             style: TextStyle(color: Colors.white),
                           ),
-                          onPressed: _logout,
+                          onPressed: () {
+                            _logout(context);
+                          },
                         ),
                       ],
                     );

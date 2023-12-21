@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scanshot/pages/session_manager.dart';
 import 'package:scanshot/widget/image_widget.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,6 +26,9 @@ class _LoginPageState extends State<LoginPage> {
         email: email,
         password: password,
       );
+
+      await SessionManager.setLoggedIn(true);
+      await SessionManager.setUserId(FirebaseAuth.instance.currentUser!.uid);
 
       Navigator.of(context).pushReplacementNamed('/');
     } catch (e) {
