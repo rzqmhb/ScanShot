@@ -15,14 +15,17 @@ class DashboardPage extends StatefulWidget {
 class DashboardPageState extends State<DashboardPage> {
   FirestoreHistory firestoreHistory = FirestoreHistory();
 
+  late Future<List<Hasil>> initHasil;
+
   @override
   void initState() {
     super.initState();
+    initHasil = firestoreHistory.getRiwayat();
   }
 
   void removeKartuKeluarga(int id) {
     setState(() {
-      // kk.removeWhere((kartu) => kartu.id == id);
+      initHasil = firestoreHistory.deleteHasil(id);
     });
   }
 
@@ -71,7 +74,7 @@ class DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<List<Hasil>>(
-        future: firestoreHistory.getRiwayat(),
+        future: initHasil,
         builder: (BuildContext context, AsyncSnapshot<List<Hasil>> snapshot) {
           return Stack(
             children: [
@@ -151,8 +154,7 @@ class DashboardPageState extends State<DashboardPage> {
                           ),
                         ),
                         InkWell(
-                          onTap: () =>
-                              showConfirmationDelete(kartuKeluarga.idKK),
+                          onTap: () => showConfirmationDelete(hasil.idHasil!),
                           child: Image.asset(
                             'assets/delete_icon.png',
                             width: 36,
