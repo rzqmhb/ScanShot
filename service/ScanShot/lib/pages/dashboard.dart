@@ -213,7 +213,7 @@ class DashboardPageState extends State<DashboardPage> {
                         ),
                         InkWell(
                           onTap: () =>
-                              showConfirmationDelete(kartuKeluarga.idKK!),
+                              showConfirmationDelete(kartuKeluarga.idKK),
                           child: Image.asset(
                             'assets/delete_icon.png',
                             width: 36,
@@ -238,7 +238,7 @@ class DashboardPageState extends State<DashboardPage> {
 
   Widget _buildTextOrIcon(KartuKeluarga kartuKeluarga) {
     String textKartuKeluarga =
-        "Kartu Keluarga\nNo.K: ${kartuKeluarga.noK}\nNo.KK: ${kartuKeluarga.noKK}\nKepala Keluarga: ${kartuKeluarga.kepalaKeluarga}\nAlamat: ${kartuKeluarga.alamat}\nRT/RW: ${kartuKeluarga.rt}/${kartuKeluarga.rw}\nKode Pos: ${kartuKeluarga.kodePos}\nDesa/Kelurahan: ${kartuKeluarga.desaKelurahan}\nKecamatan: ${kartuKeluarga.kecamatan}\nKabupaten/Kota: ${kartuKeluarga.kabupatenKota}\nProvinsi: ${kartuKeluarga.provinsi}\nTanggal Dikeluarkan: ${kartuKeluarga.tanggalDikeluarkan}\nKepala Dinas: ${kartuKeluarga.kepalaDinas}\nNIP Kepala Dinas: ${kartuKeluarga.nipKepalaDinas}\n\nAnggota Keluarga\n";
+        "Kartu Keluarga\n\nNo.K: ${kartuKeluarga.noK}\nNo.KK: ${kartuKeluarga.noKK}\nKepala Keluarga: ${kartuKeluarga.kepalaKeluarga}\nAlamat: ${kartuKeluarga.alamat}\nRT/RW: ${kartuKeluarga.rt}/${kartuKeluarga.rw}\nKode Pos: ${kartuKeluarga.kodePos}\nDesa/Kelurahan: ${kartuKeluarga.desaKelurahan}\nKecamatan: ${kartuKeluarga.kecamatan}\nKabupaten/Kota: ${kartuKeluarga.kabupatenKota}\nProvinsi: ${kartuKeluarga.provinsi}\nTanggal Dikeluarkan: ${kartuKeluarga.tanggalDikeluarkan}\nKepala Dinas: ${kartuKeluarga.kepalaDinas}\nNIP Kepala Dinas: ${kartuKeluarga.nipKepalaDinas}\n\nAnggota Keluarga\n\n";
 
     for (var anggotaKeluarga in kartuKeluarga.anggotaKeluarga) {
       String anggotaText =

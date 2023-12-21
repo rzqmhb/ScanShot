@@ -4,6 +4,13 @@ import 'package:scanshot/models/anggota_keluarga.dart';
 import 'package:scanshot/models/gambar.dart';
 import 'package:scanshot/models/hasil.dart';
 import 'package:scanshot/models/kartu_keluarga.dart';
+import 'dart:math';
+import 'dart:core';
+
+int getId() {
+  int randomNumber = Random().nextInt(128);
+  return randomNumber;
+}
 
 class FirestoreHistory {
   CollectionReference history =
@@ -23,97 +30,22 @@ class FirestoreHistory {
           if (riwayat is List) {
             for (var hasil in riwayat) {
               if (hasil is Map && hasil['email'] == user.email) {
-                int idHasil = hasil['hasil']['idHasil'];
-                int idGambar = hasil['hasil']['gambar']['idGambar'];
-                String lokasiFile = hasil['hasil']['gambar']['lokasiFile'];
+                int idHasil = hasil['hasil']['idHasil'] ?? getId();
+                int idGambar = hasil['hasil']['gambar']['idGambar'] ?? getId();
+                String lokasiFile = hasil['hasil']['gambar']['lokasiFile'] ??
+                    'assets/sample_kk.jpg';
                 DateTime waktuPengambilan =
-                    hasil['hasil']['gambar']['waktuPengambilan'].toDate();
+                    hasil['hasil']['gambar']['waktuPengambilan'].toDate() ??
+                        DateTime.now();
 
                 Gambar gambar = Gambar(
                     idGambar: idGambar,
                     lokasiFile: lokasiFile,
                     waktuPengambilan: waktuPengambilan);
 
-                int idKK = hasil['hasil']['kartuKeluarga']['idKK'];
-                int noKK = hasil['hasil']['kartuKeluarga']['noKK'];
-                int noK = hasil['hasil']['kartuKeluarga']['noK'];
-                String kepalaKeluarga =
-                    hasil['hasil']['kartuKeluarga']['kepalaKeluarga'];
-                String alamat = hasil['hasil']['kartuKeluarga']['alamat'];
-                int rt = hasil['hasil']['kartuKeluarga']['rt'];
-                int rw = hasil['hasil']['kartuKeluarga']['rw'];
-                int kodePos = hasil['hasil']['kartuKeluarga']['kodePos'];
-                String desaKelurahan =
-                    hasil['hasil']['kartuKeluarga']['desaKelurahan'];
-                String kecamatan = hasil['hasil']['kartuKeluarga']['kecamatan'];
-                String kabupatenKota =
-                    hasil['hasil']['kartuKeluarga']['kabupatenKota'];
-                String provinsi = hasil['hasil']['kartuKeluarga']['provinsi'];
-                String tanggalDikeluarkan =
-                    hasil['hasil']['kartuKeluarga']['tanggalDikeluarkan'];
-                String kepalaDinas =
-                    hasil['hasil']['kartuKeluarga']['kepalaDinas'];
-                int nipKepalaDinas =
-                    hasil['hasil']['kartuKeluarga']['nipKepalaDinas'];
-                List listAnggotaKeluarga =
-                    hasil['hasil']['kartuKeluarga']['anggotaKeluarga'];
+                var initKartuKeluarga = hasil['hasil']['kartuKeluarga'] ?? '-';
 
-                List<AnggotaKeluarga> anggotaKeluarga = [];
-
-                for (var data in listAnggotaKeluarga) {
-                  int nik = data['nik'];
-                  String namaLengkap = data['namaLengkap'];
-                  String jenisKelamin = data['jenisKelamin'];
-                  String tempatLahir = data['tempatLahir'];
-                  String tanggalLahir = data['tanggalLahir'];
-                  String agama = data['agama'];
-                  String pendidikan = data['pendidikan'];
-                  String jenisPekerjaan = data['jenisPekerjaan'];
-                  String statusPerkawinan = data['statusPerkawinan'];
-                  String statusHubungan = data['statusHubungan'];
-                  String kewarganegaraan = data['kewarganegaraan'];
-                  int noPaspor = data['noPaspor'];
-                  int noKitap = data['noKitap'];
-                  String ayah = data['ayah'];
-                  String ibu = data['ibu'];
-
-                  AnggotaKeluarga anggota = AnggotaKeluarga(
-                      nik: nik,
-                      namaLengkap: namaLengkap,
-                      jenisKelamin: jenisKelamin,
-                      tempatLahir: tempatLahir,
-                      tanggalLahir: tanggalLahir,
-                      agama: agama,
-                      pendidikan: pendidikan,
-                      jenisPekerjaan: jenisPekerjaan,
-                      statusPerkawinan: statusPerkawinan,
-                      statusHubungan: statusHubungan,
-                      kewarganegaraan: kewarganegaraan,
-                      noPaspor: noPaspor,
-                      noKitap: noKitap,
-                      ayah: ayah,
-                      ibu: ibu);
-
-                  anggotaKeluarga.add(anggota);
-                }
-
-                KartuKeluarga kartuKeluarga = KartuKeluarga(
-                    idKK: idKK,
-                    noKK: noKK,
-                    noK: noK,
-                    kepalaKeluarga: kepalaKeluarga,
-                    alamat: alamat,
-                    rt: rt,
-                    rw: rw,
-                    kodePos: kodePos,
-                    desaKelurahan: desaKelurahan,
-                    kecamatan: kecamatan,
-                    kabupatenKota: kabupatenKota,
-                    provinsi: provinsi,
-                    tanggalDikeluarkan: tanggalDikeluarkan,
-                    kepalaDinas: kepalaDinas,
-                    nipKepalaDinas: nipKepalaDinas,
-                    anggotaKeluarga: anggotaKeluarga);
+                KartuKeluarga kartuKeluarga = changeToKK(initKartuKeluarga);
 
                 Hasil hasilAkhir = Hasil(
                     idHasil: idHasil,
@@ -131,6 +63,84 @@ class FirestoreHistory {
   }
 
   // Future<void> updateFormWidget() {
-    
+
   // }
+
+  KartuKeluarga changeToKK(var data) {
+    int idKK = data['idKK'] ?? getId;
+    int noKK = data['noKK'] ?? 0;
+    int noK = data['noK'] ?? 0;
+    String kepalaKeluarga = data['kepalaKeluarga'] ?? "";
+    String alamat = data['alamat'] ?? "";
+    int rt = data['rt'] ?? 0;
+    int rw = data['rw'] ?? 0;
+    int kodePos = data['kodePos'];
+    String desaKelurahan = data['desaKelurahan'] ?? '-';
+    String kecamatan = data['kecamatan'] ?? '-';
+    String kabupatenKota = data['kabupatenKota'] ?? '-';
+    String provinsi = data['provinsi'] ?? '-';
+    String tanggalDikeluarkan = data['tanggalDikeluarkan'] ?? '-';
+    String kepalaDinas = data['kepalaDinas'] ?? '-';
+    int nipKepalaDinas = data['nipKepalaDinas'] ?? 0;
+    List listAnggotaKeluarga = data['anggotaKeluarga'] ?? [];
+
+    List<AnggotaKeluarga> anggotaKeluarga = [];
+
+    for (var data in listAnggotaKeluarga) {
+      int nik = data['nik'] ?? 0;
+      String namaLengkap = data['namaLengkap'] ?? '-';
+      String jenisKelamin = data['jenisKelamin'] ?? '-';
+      String tempatLahir = data['tempatLahir'] ?? '-';
+      String tanggalLahir = data['tanggalLahir'] ?? '-';
+      String agama = data['agama'] ?? '-';
+      String pendidikan = data['pendidikan'] ?? '-';
+      String jenisPekerjaan = data['jenisPekerjaan'] ?? '-';
+      String statusPerkawinan = data['statusPerkawinan'] ?? '-';
+      String statusHubungan = data['statusHubungan'] ?? '-';
+      String kewarganegaraan = data['kewarganegaraan'] ?? '-';
+      int noPaspor = data['noPaspor'] ?? 0;
+      int noKitap = data['noKitap'] ?? 0;
+      String ayah = data['ayah'] ?? '-';
+      String ibu = data['ibu'] ?? '-';
+
+      AnggotaKeluarga anggota = AnggotaKeluarga(
+          nik: nik,
+          namaLengkap: namaLengkap,
+          jenisKelamin: jenisKelamin,
+          tempatLahir: tempatLahir,
+          tanggalLahir: tanggalLahir,
+          agama: agama,
+          pendidikan: pendidikan,
+          jenisPekerjaan: jenisPekerjaan,
+          statusPerkawinan: statusPerkawinan,
+          statusHubungan: statusHubungan,
+          kewarganegaraan: kewarganegaraan,
+          noPaspor: noPaspor,
+          noKitap: noKitap,
+          ayah: ayah,
+          ibu: ibu);
+
+      anggotaKeluarga.add(anggota);
+    }
+
+    KartuKeluarga kartuKeluarga = KartuKeluarga(
+        idKK: idKK,
+        noKK: noKK,
+        noK: noK,
+        kepalaKeluarga: kepalaKeluarga,
+        alamat: alamat,
+        rt: rt,
+        rw: rw,
+        kodePos: kodePos,
+        desaKelurahan: desaKelurahan,
+        kecamatan: kecamatan,
+        kabupatenKota: kabupatenKota,
+        provinsi: provinsi,
+        tanggalDikeluarkan: tanggalDikeluarkan,
+        kepalaDinas: kepalaDinas,
+        nipKepalaDinas: nipKepalaDinas,
+        anggotaKeluarga: anggotaKeluarga);
+
+    return kartuKeluarga;
+  }
 }
