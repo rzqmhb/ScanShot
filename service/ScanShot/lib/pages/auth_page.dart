@@ -56,7 +56,7 @@ class AuthPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DashboardPage()),
+                            builder: (context) => const DashboardPage()),
                       );
                     });
                   } else {
@@ -64,7 +64,7 @@ class AuthPage extends StatelessWidget {
                     WidgetsBinding.instance!.addPostFrameCallback((_) {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Splash()),
+                        MaterialPageRoute(builder: (context) => LoginPage()),
                       );
                     });
                   }
@@ -77,7 +77,7 @@ class AuthPage extends StatelessWidget {
               },
             );
           } else {
-            return Splash();
+            return LoginPage();
           }
         } else {
           return Scaffold(
