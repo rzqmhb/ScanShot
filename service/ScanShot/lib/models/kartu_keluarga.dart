@@ -6,8 +6,7 @@ class KartuKeluarga {
   int noK = 0;
   String kepalaKeluarga = '';
   String alamat = '';
-  int rt = 0;
-  int rw = 0;
+  String rtRw = '';
   int kodePos = 0;
   String desaKelurahan = '';
   String kecamatan = '';
@@ -24,8 +23,7 @@ class KartuKeluarga {
     required this.noK,
     required this.kepalaKeluarga,
     required this.alamat,
-    required this.rt,
-    required this.rw,
+    required this.rtRw,
     required this.kodePos,
     required this.desaKelurahan,
     required this.kecamatan,
