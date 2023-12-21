@@ -9,6 +9,11 @@ class SessionManager {
     prefs.setBool(keyIsLoggedIn, isLoggedIn);
   }
 
+  static Future<void> clearSession() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
+
   static Future<bool> isLoggedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(keyIsLoggedIn) ?? false;
