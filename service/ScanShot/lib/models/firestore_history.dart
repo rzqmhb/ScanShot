@@ -88,7 +88,7 @@ class FirestoreHistory {
   }
 
   KartuKeluarga changeToKK(var data) {
-    int idKK = data['idKK'] ?? getId;
+    int idKK = data['idKK'] ?? getId();
     int noKK = data['noKK'] ?? 0;
     int noK = data['noK'] ?? 0;
     String kepalaKeluarga = data['kepalaKeluarga'] ?? "";
