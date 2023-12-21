@@ -1,7 +1,108 @@
 import 'package:flutter/material.dart';
+import 'package:scanshot/models/kartu_keluarga.dart';
 
-class FormWidget extends StatelessWidget {
-  const FormWidget({super.key});
+class FormWidget extends StatefulWidget {
+  final KartuKeluarga kartuKeluarga;
+
+  const FormWidget({super.key, required this.kartuKeluarga});
+
+  @override
+  State<FormWidget> createState() => _FormWidgetState();
+}
+
+class _FormWidgetState extends State<FormWidget> {
+  final TextEditingController noKK = TextEditingController();
+
+  final TextEditingController noK = TextEditingController();
+
+  final TextEditingController kepalaKeluarga = TextEditingController();
+
+  final TextEditingController alamat = TextEditingController();
+
+  final TextEditingController rt = TextEditingController();
+
+  final TextEditingController rw = TextEditingController();
+
+  final TextEditingController kodePos = TextEditingController();
+
+  final TextEditingController desaKelurahan = TextEditingController();
+
+  final TextEditingController kecamatan = TextEditingController();
+
+  final TextEditingController kabupatenKota = TextEditingController();
+
+  final TextEditingController provinsi = TextEditingController();
+
+  final TextEditingController tanggalDikeluarkan = TextEditingController();
+
+  final TextEditingController kepalaDinas = TextEditingController();
+
+  final TextEditingController nipKepalaDinas = TextEditingController();
+
+  @override
+  void dispose() {
+    noKK.dispose();
+
+    noK.dispose();
+
+    kepalaKeluarga.dispose();
+
+    alamat.dispose();
+
+    rt.dispose();
+
+    rw.dispose();
+
+    kodePos.dispose();
+
+    desaKelurahan.dispose();
+
+    kecamatan.dispose();
+
+    kabupatenKota.dispose();
+
+    provinsi.dispose();
+
+    tanggalDikeluarkan.dispose();
+
+    kepalaDinas.dispose();
+
+    nipKepalaDinas.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    noKK.text = widget.kartuKeluarga.noKK.toString();
+
+    noK.text = widget.kartuKeluarga.noK.toString();
+
+    kepalaKeluarga.text = widget.kartuKeluarga.kepalaKeluarga.toString();
+
+    alamat.text = widget.kartuKeluarga.alamat.toString();
+
+    rt.text = widget.kartuKeluarga.rt.toString();
+
+    rw.text = widget.kartuKeluarga.rw.toString();
+
+    kodePos.text = widget.kartuKeluarga.kodePos.toString();
+
+    desaKelurahan.text = widget.kartuKeluarga.desaKelurahan.toString();
+
+    kecamatan.text = widget.kartuKeluarga.kecamatan.toString();
+
+    kabupatenKota.text = widget.kartuKeluarga.kabupatenKota.toString();
+
+    provinsi.text = widget.kartuKeluarga.provinsi.toString();
+
+    tanggalDikeluarkan.text =
+        widget.kartuKeluarga.tanggalDikeluarkan.toString();
+
+    kepalaDinas.text = widget.kartuKeluarga.kepalaDinas.toString();
+
+    nipKepalaDinas.text = widget.kartuKeluarga.nipKepalaDinas.toString();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +144,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: noKK,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -68,6 +170,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: noK,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -93,6 +196,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: kepalaKeluarga,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -118,6 +222,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: alamat,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -133,7 +238,7 @@ class FormWidget extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'RT/RW',
+                      'RT',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
@@ -143,6 +248,33 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: rt,
+                  decoration: const InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 0.5),
+                    ),
+                  ),
+                  style: const TextStyle(color: Colors.black),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 16.0, bottom: 8.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'RW',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                TextFormField(
+                  controller: rw,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -168,6 +300,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: kodePos,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -193,6 +326,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: desaKelurahan,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -218,6 +352,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: kabupatenKota,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -243,6 +378,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: provinsi,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -268,6 +404,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: tanggalDikeluarkan,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -293,6 +430,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: kepalaDinas,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -318,6 +456,7 @@ class FormWidget extends StatelessWidget {
                   ),
                 ),
                 TextFormField(
+                  controller: nipKepalaDinas,
                   decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,

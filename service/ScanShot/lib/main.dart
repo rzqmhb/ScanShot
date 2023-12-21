@@ -1,8 +1,8 @@
-// import 'dart:js';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:scanshot/pages/account_pages/account_information.dart';
+import 'package:scanshot/pages/account_information.dart';
 import 'package:scanshot/pages/auth_page.dart';
+import 'package:scanshot/pages/change_password.dart';
+import 'package:scanshot/pages/change_username.dart';
 import 'package:scanshot/pages/form_page.dart';
 import 'package:scanshot/pages/image_page.dart';
 import 'firebase_options.dart';
@@ -18,7 +18,6 @@ import 'package:scanshot/pages/result.dart';
 import 'package:scanshot/pages/login_page.dart';
 import 'package:scanshot/pages/splash_screen.dart';
 import 'package:scanshot/pages/lupa_password.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +26,7 @@ Future main() async {
   );
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: AuthPage(),
+    home: const AuthPage(),
     theme: ThemeData(
       scaffoldBackgroundColor: const Color(0xFF252525),
     ),
@@ -65,7 +64,7 @@ Future main() async {
         case '/help':
           return PageTransition(
             child: HelpPage(),
-            type: PageTransitionType.bottomToTop,
+            type: PageTransitionType.fade,
             settings: settings,
           );
         case '/scanPreview':
@@ -89,7 +88,19 @@ Future main() async {
         case '/informasiAkun':
           return PageTransition(
             child: InformasiAkun(),
-            type: PageTransitionType.bottomToTop,
+            type: PageTransitionType.fade,
+            settings: settings,
+          );
+        case '/gantiUsername':
+          return PageTransition(
+            child: GantiUsername(),
+            type: PageTransitionType.fade,
+            settings: settings,
+          );
+        case '/gantiPassword':
+          return PageTransition(
+            child: GantiPassword(),
+            type: PageTransitionType.fade,
             settings: settings,
           );
         case '/form':
@@ -100,7 +111,9 @@ Future main() async {
           );
         case '/image':
           return PageTransition(
-            child: const ImageResultScreen(imagePath: '',),
+            child: const ImageResultScreen(
+              imagePath: '',
+            ),
             type: PageTransitionType.topToBottom,
             settings: settings,
           );

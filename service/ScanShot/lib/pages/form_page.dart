@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scanshot/models/kartu_keluarga.dart';
 import 'package:scanshot/widget/footer.dart';
 import 'package:scanshot/widget/form_widget.dart';
 import 'package:scanshot/widget/member_form_widget.dart';
@@ -13,6 +14,10 @@ class FormPage extends StatefulWidget {
 class _FormPageState extends State<FormPage> {
   @override
   Widget build(BuildContext context) {
+    final kartuKeluarga =
+        ModalRoute.of(context)!.settings.arguments as KartuKeluarga;
+    final anggota = kartuKeluarga.anggotaKeluarga;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF252525),
@@ -25,23 +30,23 @@ class _FormPageState extends State<FormPage> {
           ),
         ),
       ),
-      body: const Stack(
+      body: Stack(
         children: [
           Positioned(
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.only(bottom: 128.0),
+                padding: const EdgeInsets.only(bottom: 128.0),
                 child: Column(
                   children: <Widget>[
-                    FormWidget(),
-                    SizedBox(height: 20),
-                    MemberFormWidget(),
+                    FormWidget(kartuKeluarga: kartuKeluarga),
+                    const SizedBox(height: 20),
+                    MemberFormWidget(anggotaKeluarga: anggota),
                   ],
                 ),
               ),
             ),
           ),
-          Positioned(
+          const Positioned(
             child: FooterWidget(),
           ),
         ],
