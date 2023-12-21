@@ -21,7 +21,7 @@ class AuthPage extends StatelessWidget {
           });
         } else {
           WidgetsBinding.instance!.addPostFrameCallback((_) {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => Splash()),
             );
