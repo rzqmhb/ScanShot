@@ -1,3 +1,4 @@
+// import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -7,6 +8,11 @@ import 'dart:ui' as ui;
 import 'dart:typed_data';
 import 'package:image/image.dart' as img;
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:scanshot/widget/dialog_error.dart';
 
 class ImageResultScreen extends StatefulWidget {
   final String imagePath;
@@ -18,6 +24,29 @@ class ImageResultScreen extends StatefulWidget {
 }
 
 class _ImageResultScreenState extends State<ImageResultScreen> {
+  TextEditingController noKKController = TextEditingController();
+  TextEditingController kepalaDanAlamatController = TextEditingController();
+  TextEditingController daerahController = TextEditingController();
+  TextEditingController namaAnggotaController = TextEditingController();
+  TextEditingController nikAnggotaController = TextEditingController();
+  TextEditingController jenisKelaminController = TextEditingController();
+  TextEditingController tempatLahirController = TextEditingController();
+  TextEditingController tanggalLahirController = TextEditingController();
+  TextEditingController agamaAnggotaController = TextEditingController();
+  TextEditingController pendidikanAnggotaController = TextEditingController();
+  TextEditingController pekerjaanAnggotaController = TextEditingController();
+  TextEditingController golDarahAnggotaController = TextEditingController();
+  TextEditingController perkawinanAnggotaController = TextEditingController();
+  TextEditingController statusHubunganAnggotaController = TextEditingController();
+  TextEditingController kewarganegaraanAnggotaController = TextEditingController();
+  TextEditingController ayahAnggotaController = TextEditingController();
+  TextEditingController ibuAnggotaController = TextEditingController();
+  TextEditingController tglKeluarController = TextEditingController();
+  late Map<String, TextEditingController> controllers;
+  final db = FirebaseFirestore.instance;
+  final storage = FirebaseStorage.instance;
+  final auth = FirebaseAuth.instance;
+  late User user;
   bool isLoading = false;
   String scannedText = '';
   late File originalImage;
@@ -25,9 +54,30 @@ class _ImageResultScreenState extends State<ImageResultScreen> {
 
   @override
   void initState() {
+    user = auth.currentUser!;
     originalImage = File(widget.imagePath);
     currentImage = originalImage;
     super.initState();
+    controllers = {
+      'No_KK' : noKKController,
+      'Kepala_&_Alamat' : kepalaDanAlamatController,
+      'Daerah' : daerahController,
+      'Nama_Anggota' : namaAnggotaController,
+      'NIK_Anggota' : nikAnggotaController,
+      'Jenis_Kelamin_Anggota' : jenisKelaminController,
+      'Tempat_Lahir_Anggota' : tempatLahirController,
+      'Tanggal_Lahir_Anggota' : tanggalLahirController,
+      'Agama_Anggota' : agamaAnggotaController,
+      'Pendidikan_Anggota' : pendidikanAnggotaController,
+      'Pekerjaan_Anggota' : pekerjaanAnggotaController,
+      'GolDarah_Anggota' : golDarahAnggotaController,
+      'Perkawinan_Anggota' : perkawinanAnggotaController,
+      'Status_Hubungan_Anggota' : statusHubunganAnggotaController,
+      'Kewarganegaraan_Anggota' : kewarganegaraanAnggotaController,
+      'Ayah_Dari_Anggota' : ayahAnggotaController,
+      'Ibu_Dari_Anggota' : ibuAnggotaController,
+      'TGL_Dikeluarkan' : tglKeluarController,
+    };
   }
 
   Future<(int, int)> getImageWidthAndHeight(File image) async {
@@ -61,6 +111,7 @@ class _ImageResultScreenState extends State<ImageResultScreen> {
 
   Future<void> scanImage(image) async {
     final textRecognizer = TextRecognizer();
+    
     Map<String, List<double>> scalar = {
       'No_KK' : [(30/746), (85/746), (380/1054), (700/1054)],
       'Kepala_&_Alamat' : [(70/746), (150/746), (240/1054), (340/1054)],
@@ -93,96 +144,90 @@ class _ImageResultScreenState extends State<ImageResultScreen> {
       RecognizedText resultText = await textRecognizer.processImage(inputImage);
       setState(
         () {
-          scannedText += key;
-          scannedText += ':\n';
-          scannedText += resultText.text;
-          scannedText += '\n\n';
+          controllers[key]!.text = resultText.text;
         },
       );
     }
+    // List<String> namaLines = controllers['Nama_Anggota']!.text.split('\n');
+    // print(namaLines[2]);
+  }
 
-    
-    // // Nama Anggota Keluarga
-    // List<double>? tmpScalars = scalar['Nama_Anggota'];
-    // double topScalar = tmpScalars![0];
-    // double botScalar = tmpScalars[1];
-    // double leftScalar = tmpScalars[2];
-    // double rightScalar = tmpScalars[3];
-    // File crop = await getKKSection(image, topScalar, botScalar, leftScalar, rightScalar);
-    // InputImage inputImage = InputImage.fromFile(crop);
-    // RecognizedText resultText = await textRecognizer.processImage(inputImage);
-    // setState(
-    //   () {
-    //     scannedText += resultText.text;
-    //     scannedText += '\n';
-    //   },
-    // );
-    
-    // final inputImage = InputImage.fromFile(image);
-    // final resultText = await textRecognizer.processImage(inputImage);
-    // final dimensions = await getImageWidthAndHeight(image);
-    // final width = dimensions.$1;
-    // final height = dimensions.$2;
+  Future<void> saveResult() async {
+    var time = DateTime.now().millisecondsSinceEpoch.toString();
+    final ref = storage.ref().child('scanned-image').child(user.uid).child('$time.png');
+    await ref.putFile(currentImage);
+    var url = await ref.getDownloadURL();
 
-    // String text = '';
-    // for (TextBlock block in resultText.blocks) {
-    //   for (TextLine line in block.lines) {
-    //     text += line.text;
-    //     text += '\n';
-    //   }
-    //   text += '\n';
-    // }
-    // setState(
-    //   () {
-    //     scannedText = text;
-    //   },
-    // );
+    List<String> noKKLines = controllers['No_KK']!.text.split('\n');
+    List<String> kepalaDanAlamatLines = controllers['Kepala_&_Alamat']!.text.split('\n');
+    List<String> daerahLines = controllers['Daerah']!.text.split('\n');
+    List<String> namaLines = controllers['Nama_Anggota']!.text.split('\n');
+    List<String> nikLines = controllers['NIK_Anggota']!.text.split('\n');
+    List<String> jenisKelaminLines = controllers['Jenis_Kelamin_Anggota']!.text.split('\n');
+    List<String> tempatLahirLines = controllers['Tempat_Lahir_Anggota']!.text.split('\n');
+    List<String> tanggalLahirLines = controllers['Tanggal_Lahir_Anggota']!.text.split('\n');
+    List<String> agamaLines = controllers['Agama_Anggota']!.text.split('\n');
+    List<String> pendidikanLines = controllers['Pendidikan_Anggota']!.text.split('\n');
+    List<String> pekerjaanLines = controllers['Pekerjaan_Anggota']!.text.split('\n');
+    List<String> golDarahLines = controllers['GolDarah_Anggota']!.text.split('\n');
+    List<String> perkawinanLines = controllers['Perkawinan_Anggota']!.text.split('\n');
+    List<String> hubunganLines = controllers['Status_Hubungan_Anggota']!.text.split('\n');
+    List<String> kewarganegaraanLines = controllers['Kewarganegaraan_Anggota']!.text.split('\n');
+    List<String> ayahLines = controllers['Ayah_Dari_Anggota']!.text.split('\n');
+    List<String> ibuLines = controllers['Ibu_Dari_Anggota']!.text.split('\n');
+    List<String> tglKeluarLines = controllers['TGL_Dikeluarkan']!.text.split('\n');
+    int noKK = int.parse(noKKLines[0]);
+    int kodePos = int.parse(kepalaDanAlamatLines[3]);
 
-    // for (TextBlock block in resultText.blocks){
-    //   Rect boundingBox = block.boundingBox;
-    //   double top = boundingBox.top / height;
-    //   double bottom = boundingBox.bottom / height;
-    //   double left = boundingBox.left / width;
-    //   double right = boundingBox.right / width;
+    Map<String, dynamic> riwayat = {
+      'email': '${user.email}',
+      'hasil' : {
+        'gambar' : {
+          'lokasiFile': url,
+          'waktuPengambilan' : Timestamp.fromDate(DateTime.now()),
+        },
+        'kartuKeluarga' : {
+          'anggotaKeluarga' : [],
+          'noKK' : noKK,
+          'kepalaKeluarga' : kepalaDanAlamatLines[0],
+          'alamat' : kepalaDanAlamatLines[1],
+          'rtRw' : kepalaDanAlamatLines[2],
+          'kodePos' : kodePos,
+          'desaKelurahan' : daerahLines[0],
+          'kecamatan' : daerahLines[1],
+          'kabupatenKota' : daerahLines[2],
+          'provinsi' : daerahLines[3],
+          'tanggalDikeluarkan' : tglKeluarLines[0],
+        },
+      },
+    };
 
-    //   if ((top >= 30/746 && bottom <= 95/746) && (left >= 300/1054 && right <= 700/1054)) {
-    //     print(block.text);
-    //     setState(
-    //       () {
-    //         scannedText = '\n$scannedText${block.text}\n';
-    //       },
-    //     );
-    //     continue;
-    //   }
+    for(int i = 0; i<namaLines.length; i++){
+      int nik = int.parse(nikLines[i]);
+      Map<String, dynamic> tmp = {
+        'agama' : agamaLines[i],
+        'ayah' : ayahLines[i],
+        'ibu' : ibuLines[i],
+        'jenisKelamin' : jenisKelaminLines[i],
+        'jenisPekerjaan' : pekerjaanLines[i],
+        'kewarganegaraan' : kewarganegaraanLines[i],
+        'namaLengkap' : namaLines[i],
+        'nik' : nik,
+        'pendidikan' : pendidikanLines[i],
+        'statusHubungan' : hubunganLines[i],
+        'statusPerkawinan' : perkawinanLines[i],
+        'tanggalLahir' : tanggalLahirLines[i],
+        'tempatLahir' : tempatLahirLines[i],
+        'golonganDarah' : golDarahLines[i],
+      };
+      // riwayat['hasil']['kartuKeluarga']['anggotaKeluarga'][i] = tmp;
+      riwayat['hasil']['kartuKeluarga']['anggotaKeluarga'].add(tmp);
+    }
 
-    //   if ((top >= 60/746 && bottom <= 160/746) && (left >= 100/1054 && right <= 350/1054)) {
-    //     print(block.text);
-    //     setState(
-    //       () {
-    //         scannedText = '\n$scannedText${block.text}\n';
-    //       },
-    //     );
-    //     continue;
-    //   }
-    //   if ((top >= 60/746 && bottom <= 160/746) && (left >= 600/1054 && right <= 900/1054)) {
-    //     print(block.text);
-    //     setState(
-    //       () {
-    //         scannedText = '\n$scannedText${block.text}\n';
-    //       },
-    //     );
-    //     continue;
-    //   }
-    //   if ((top >= 190/746 && bottom <= 360/746) && (left >= 30/1054 && right <= 1050/1054)) {
-    //     print(block.text);
-    //     setState(
-    //       () {
-    //         scannedText = '\n$scannedText${block.text}\n';
-    //       },
-    //     );
-    //     continue;
-    //   }
-    // }
+    CollectionReference history = FirebaseFirestore.instance.collection('history');
+    await history.doc('xn18Pgla7ZI2XFpN7YBH').update({
+      'riwayat': FieldValue.arrayUnion([riwayat]),
+    });
   }
 
   cropImage(File imgFile) async {
@@ -208,13 +253,13 @@ class _ImageResultScreenState extends State<ImageResultScreen> {
             ],
       uiSettings: [
         AndroidUiSettings(
-            toolbarTitle: "Image Cropper",
-            toolbarColor: Colors.deepOrange,
+            toolbarTitle: "Pemangkas Gambar",
+            toolbarColor: const Color(0xFFFFC60B),
             toolbarWidgetColor: Colors.white,
             initAspectRatio: CropAspectRatioPreset.original,
             lockAspectRatio: false),
         IOSUiSettings(
-          title: "Image Cropper",
+          title: "Pemangkas Gambar",
         )
       ],
     );
@@ -227,6 +272,30 @@ class _ImageResultScreenState extends State<ImageResultScreen> {
         },
       );
     }
+  }
+
+  Widget textField(label, controller) {
+    return Container(
+      margin: const EdgeInsets.only(top: 8, bottom: 8),
+      child: FormBuilderTextField(
+        name: '$label',
+        controller: controller,
+        maxLines: null,
+        decoration: InputDecoration(
+          labelText: '$label',
+          labelStyle: const TextStyle(color: Colors.white),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(color: Color(0xFFFFC60B)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: const BorderSide(color: Color(0xFFFFC60B)),
+          ),
+        ),
+        style: const TextStyle(color: Colors.white),
+      ),
+    );
   }
 
   @override
@@ -247,9 +316,27 @@ class _ImageResultScreenState extends State<ImageResultScreen> {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: SingleChildScrollView(
-                    child: Text(
-                      scannedText, 
-                      style: const TextStyle(color: Colors.white),
+                    child: Column(
+                      children: [
+                        textField('Nomor KK', noKKController),
+                        textField('Kepala Keluarga & Alamat', kepalaDanAlamatController),
+                        textField('Daerah', daerahController),
+                        textField('Nama Anggota', namaAnggotaController),
+                        textField('NIK Anggota', nikAnggotaController),
+                        textField('Jenis Kelamin Anggota', jenisKelaminController),
+                        textField('Tempat Lahir Anggota', tempatLahirController),
+                        textField('Tanggal Lahir Anggota', tanggalLahirController),
+                        textField('Agama Anggota', agamaAnggotaController),
+                        textField('Pendidikan Anggota', pendidikanAnggotaController),
+                        textField('Pekerjaan Anggota', pekerjaanAnggotaController),
+                        textField('Gol. Darah Anggota', golDarahAnggotaController),
+                        textField('Status Perkawinan Anggota', perkawinanAnggotaController),
+                        textField('Status Hubungan Keluarga', statusHubunganAnggotaController),
+                        textField('Kewarganegaraan Anggota', kewarganegaraanAnggotaController),
+                        textField('Ayah Dari Anggota', ayahAnggotaController),
+                        textField('Ibu Dari Anggota', ibuAnggotaController),
+                        textField('Tanggal Dikeluarkan', tglKeluarController),
+                      ],
                     ),
                   ),
                 ),
@@ -277,12 +364,45 @@ class _ImageResultScreenState extends State<ImageResultScreen> {
                         isLoading = true;
                       });
                       scanImage(currentImage)
-                      .then((value) {setState(() {
-                        isLoading = false;
-                      });});
+                      .then((value) {
+                        setState(() {
+                          isLoading = false;
+                        });
+                      });
                     }, //function scan image
                     backgroundColor: const Color(0xFFFFC60B),
                     child: const Icon(Icons.document_scanner, color: Color(0xFF252525),),
+                  ),
+                ),
+                noKKController.text == '' ? const SizedBox.shrink() : Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      saveResult()
+                      .then((value) {
+                        setState(() {
+                          isLoading = false;
+                        });
+                        Navigator.pushNamed(context, '/');
+                      }).onError((error, stackTrace) {
+                        setState(() {
+                          isLoading = false;
+                        });
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return DialogError(
+                              error: "Ada yang salah dalam form, pastikan tidak ada kekeliruan atau kesalahan dalam data hasil pindaian",
+                            );
+                          },
+                        );
+                      });
+                    },
+                    backgroundColor: const Color(0xFFFFC60B),
+                    child: const Icon(Icons.save, color: Color(0xFF252525),),
                   ),
                 ),
               ],

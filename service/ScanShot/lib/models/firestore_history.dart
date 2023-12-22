@@ -62,7 +62,7 @@ class FirestoreHistory {
     return listData;
   }
 
-  Future<void> deleteHasil(int idHasil) async {
+  Future<List<Hasil>> deleteHasil(int idHasil) async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null && user.email != null) {
       var snapshot = await history.get();
@@ -85,10 +85,11 @@ class FirestoreHistory {
         }
       }
     }
+    return getRiwayat();
   }
 
   KartuKeluarga changeToKK(var data) {
-    int idKK = data['idKK'] ?? getId;
+    int idKK = data['idKK'] ?? getId();
     int noKK = data['noKK'] ?? 0;
     int noK = data['noK'] ?? 0;
     String kepalaKeluarga = data['kepalaKeluarga'] ?? "";

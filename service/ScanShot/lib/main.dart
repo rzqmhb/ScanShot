@@ -27,7 +27,7 @@ Future main() async {
   );
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: const AuthPage(),
+    // home: const AuthPage(),
     theme: ThemeData(
       scaffoldBackgroundColor: const Color(0xFF252525),
     ),
@@ -38,6 +38,12 @@ Future main() async {
     },
     onGenerateRoute: (settings) {
       switch (settings.name) {
+        case '/auth':
+          return PageTransition(
+            child: const AuthPage(),
+            type: PageTransitionType.fade,
+            settings: settings,
+          );
         case '/login':
           return PageTransition(
             child: LoginPage(),

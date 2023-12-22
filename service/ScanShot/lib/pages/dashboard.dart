@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scanshot/models/hasil.dart';
 import 'package:scanshot/models/kartu_keluarga.dart';
-import 'package:scanshot/models/keluarga_kartu.dart';
 import 'package:scanshot/models/firestore_history.dart';
 import 'package:scanshot/widget/footer.dart';
 import 'package:scanshot/widget/title.dart';
@@ -16,75 +15,17 @@ class DashboardPage extends StatefulWidget {
 class DashboardPageState extends State<DashboardPage> {
   FirestoreHistory firestoreHistory = FirestoreHistory();
 
+  late Future<List<Hasil>> initHasil;
+
   @override
   void initState() {
     super.initState();
+    initHasil = firestoreHistory.getRiwayat();
   }
-
-  final List<int> validId = [1, 2];
-
-  final List<KeluargaKartu> kk = [
-    KeluargaKartu(
-      id: 1,
-      gambar: 'assets/sample_kk.jpg',
-      teks: '''Keluarga Keluarga
-      Nomor : 7308180205083847
-      Kepala Keluarga : ***
-      Alamat : ****
-      Anggota Keluarga :
-      *** :
-      NIK : ***
-      Kelamin :
-      TTL :
-      Agama :
-      Pendidikan :
-      Pekerjaan :
-      ***
-      ***''',
-    ),
-    KeluargaKartu(
-      id: 2,
-      gambar: 'assets/sample_kk.jpg',
-      teks: '''Keluarga Keluarga
-      Nomor : 7308180205083848
-      Kepala Keluarga : ***
-      Alamat : ****
-      Anggota Keluarga :
-      *** :
-      NIK : ***
-      Kelamin :
-      TTL :
-      Agama :
-      Pendidikan :
-      Pekerjaan :
-      ***
-      ***''',
-    ),
-    KeluargaKartu(
-      id: 3,
-      gambar: 'assets/sample_kk.jpg',
-      teks: '''Keluarga Keluarga
-      Nomor : 7308180205083867
-      Kepala Keluarga : ***
-      Alamat : ****
-      Anggota Keluarga :
-      *** :
-      NIK : ***
-      Kelamin :
-      TTL :
-      Agama :
-      Pendidikan :
-      Pekerjaan :
-      ***
-      ***''',
-    ),
-  ];
-
-  final List<Hasil> riwayat = [];
 
   void removeKartuKeluarga(int id) {
     setState(() {
-      kk.removeWhere((kartu) => kartu.id == id);
+      initHasil = firestoreHistory.deleteHasil(id);
     });
   }
 
@@ -133,7 +74,7 @@ class DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<List<Hasil>>(
-        future: firestoreHistory.getRiwayat(),
+        future: initHasil,
         builder: (BuildContext context, AsyncSnapshot<List<Hasil>> snapshot) {
           return Stack(
             children: [
@@ -167,9 +108,10 @@ class DashboardPageState extends State<DashboardPage> {
           final kartuKeluarga = hasil.kartuKeluarga!;
           return InkWell(
             onTap: () {
-              if (validId.contains(kartuKeluarga.idKK)) {
-                Navigator.pushNamed(context, '/result', arguments: hasil);
-              }
+              Navigator.pushNamed(context, '/result', arguments: hasil);
+              // if (validId.contains(kartuKeluarga.idKK)) {
+              //   Navigator.pushNamed(context, '/result', arguments: hasil);
+              // }
             },
             child: Container(
               height: 100,
@@ -211,9 +153,47 @@ class DashboardPageState extends State<DashboardPage> {
                             child: _buildTextOrIcon(kartuKeluarga),
                           ),
                         ),
-                        InkWell(
-                          onTap: () =>
-                              showConfirmationDelete(kartuKeluarga.idKK),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                          ),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Konfirmasi Hapus Riwayat'),
+                                  content: const Text(
+                                      'Apakah Anda yakin ingin menghapus riwayat ini?'),
+                                  titleTextStyle:
+                                      const TextStyle(color: Colors.white),
+                                  contentTextStyle:
+                                      const TextStyle(color: Colors.white),
+                                  backgroundColor: const Color(0xFF252525),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text(
+                                        'Batal',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: const Text(
+                                        'Hapus',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        removeKartuKeluarga(hasil.idHasil!);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
                           child: Image.asset(
                             'assets/delete_icon.png',
                             width: 36,
@@ -244,22 +224,13 @@ class DashboardPageState extends State<DashboardPage> {
           "NIK: ${anggotaKeluarga.nik}\n\nNama Lengkap: ${anggotaKeluarga.namaLengkap}\nJenis Kelamin: ${anggotaKeluarga.jenisKelamin}\nTempat Lahir: ${anggotaKeluarga.tempatLahir}\n Tanggal Lahir: ${anggotaKeluarga.tanggalLahir}\nAgama: ${anggotaKeluarga.agama}\nPendidikan: ${anggotaKeluarga.pendidikan}\nJenis Pekerjaan: ${anggotaKeluarga.jenisPekerjaan}\nStatus Perkawinan: ${anggotaKeluarga.statusPerkawinan}\nStatus Hubungan: ${anggotaKeluarga.statusHubungan}\nKewarganegaraan: ${anggotaKeluarga.kewarganegaraan}\nNo.Paspor: ${anggotaKeluarga.noPaspor}\nNo.Kitap: ${anggotaKeluarga.noKitap}\nAyah: ${anggotaKeluarga.ayah}\nIbu: ${anggotaKeluarga.ibu}\n\n";
       textKartuKeluarga += anggotaText;
     }
-    return validId.contains(kartuKeluarga.idKK)
-        ? SelectableText(
-            textKartuKeluarga,
-            style: const TextStyle(
-              color: Color(0xFF252525),
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          )
-        : InkWell(
-            onTap: () => showInvalidMessage(),
-            child: Image.asset(
-              'assets/error_icon.png',
-              width: 36,
-              height: 36,
-            ),
-          );
+    return SelectableText(
+      textKartuKeluarga,
+      style: const TextStyle(
+        color: Color(0xFF252525),
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
+    );
   }
 }
