@@ -65,7 +65,7 @@ class ResultPage extends StatelessWidget {
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
-                              child: Image.asset(
+                              child: Image.network(
                                 gambar.lokasiFile.toString(),
                                 fit: BoxFit.cover,
                               ),

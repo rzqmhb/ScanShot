@@ -154,9 +154,15 @@ class _ImageResultScreenState extends State<ImageResultScreen> {
 
   Future<void> saveResult() async {
     var time = DateTime.now().millisecondsSinceEpoch.toString();
+    final db = FirebaseFirestore.instance;
     final ref = storage.ref().child('scanned-image').child(user.uid).child('$time.png');
     await ref.putFile(currentImage);
     var url = await ref.getDownloadURL();
+    int uniqueID = 0; 
+    user.email!.runes.forEach((rune) {
+      uniqueID += rune;
+    });
+    uniqueID += int.parse(time);
 
     List<String> noKKLines = controllers['No_KK']!.text.split('\n');
     List<String> kepalaDanAlamatLines = controllers['Kepala_&_Alamat']!.text.split('\n');
@@ -182,6 +188,7 @@ class _ImageResultScreenState extends State<ImageResultScreen> {
     Map<String, dynamic> riwayat = {
       'email': '${user.email}',
       'hasil' : {
+        'idHasil' : uniqueID,
         'gambar' : {
           'lokasiFile': url,
           'waktuPengambilan' : Timestamp.fromDate(DateTime.now()),
@@ -224,7 +231,7 @@ class _ImageResultScreenState extends State<ImageResultScreen> {
       riwayat['hasil']['kartuKeluarga']['anggotaKeluarga'].add(tmp);
     }
 
-    CollectionReference history = FirebaseFirestore.instance.collection('history');
+    CollectionReference history = db.collection('history');
     await history.doc('xn18Pgla7ZI2XFpN7YBH').update({
       'riwayat': FieldValue.arrayUnion([riwayat]),
     });
@@ -387,19 +394,20 @@ class _ImageResultScreenState extends State<ImageResultScreen> {
                           isLoading = false;
                         });
                         Navigator.pushNamed(context, '/');
-                      }).onError((error, stackTrace) {
-                        setState(() {
-                          isLoading = false;
-                        });
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return DialogError(
-                              error: "Ada yang salah dalam form, pastikan tidak ada kekeliruan atau kesalahan dalam data hasil pindaian",
-                            );
-                          },
-                        );
                       });
+                      // .onError((error, stackTrace) {
+                      //   setState(() {
+                      //     isLoading = false;
+                      //   });
+                      //   showDialog(
+                      //     context: context,
+                      //     builder: (BuildContext context) {
+                      //       return DialogError(
+                      //         error: "Ada yang salah dalam form, pastikan tidak ada kekeliruan atau kesalahan dalam data hasil pindaian",
+                      //       );
+                      //     },
+                      //   );
+                      // });
                     },
                     backgroundColor: const Color(0xFFFFC60B),
                     child: const Icon(Icons.save, color: Color(0xFF252525),),
