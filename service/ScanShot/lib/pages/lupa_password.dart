@@ -42,10 +42,6 @@ class _LupaPasswordState extends State<LupaPassword> {
     }
   }
 
-  void _navigateToHome() {
-    Navigator.pushNamed(context, '/register');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
