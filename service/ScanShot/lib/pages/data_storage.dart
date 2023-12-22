@@ -15,9 +15,12 @@ class DataStoragePage extends StatefulWidget {
 class DataStoragePageState extends State<DataStoragePage> {
   FirestoreHistory firestoreHistory = FirestoreHistory();
 
+  late Future<List<Hasil>> initHasil;
+
   @override
   void initState() {
     super.initState();
+    initHasil = firestoreHistory.getRiwayat();
   }
 
   final List<int> validId = [1, 2];
@@ -82,15 +85,8 @@ class DataStoragePageState extends State<DataStoragePage> {
   final List<Hasil> riwayat = [];
 
   void removeKartuKeluarga(int id) {
-    FirebaseFirestore.instance
-        .collection('history') // Ganti dengan nama koleksi Anda
-        .doc(id.toString())
-        .delete()
-        .then((_) => print('Berhasil menghapus data'))
-        .catchError((error) => print('Gagal menghapus data: $error'));
-
     setState(() {
-      kk.removeWhere((kartu) => kartu.id == id);
+      initHasil = firestoreHistory.deleteHasil(id);
     });
   }
 
@@ -182,9 +178,7 @@ class DataStoragePageState extends State<DataStoragePage> {
           final kartuKeluarga = hasil.kartuKeluarga!;
           return InkWell(
             onTap: () {
-              if (validId.contains(kartuKeluarga.idKK)) {
-                Navigator.pushNamed(context, '/result', arguments: hasil);
-              }
+              Navigator.pushNamed(context, '/result', arguments: hasil);
             },
             child: Container(
               height: 50,
@@ -208,14 +202,53 @@ class DataStoragePageState extends State<DataStoragePage> {
                             child: _buildTextOrIcon(kartuKeluarga),
                           ),
                         ),
-                        InkWell(
-                            onTap: () =>
-                                showConfirmationDelete(kartuKeluarga.idKK!),
-                            child: Icon(
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                          ),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Konfirmasi Hapus Riwayat'),
+                                  content: const Text(
+                                      'Apakah Anda yakin ingin menghapus riwayat ini?'),
+                                  titleTextStyle:
+                                      const TextStyle(color: Colors.white),
+                                  contentTextStyle:
+                                      const TextStyle(color: Colors.white),
+                                  backgroundColor: const Color(0xFF252525),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text(
+                                        'Batal',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: const Text(
+                                        'Hapus',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        removeKartuKeluarga(hasil.idHasil!);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: Icon(
                               Icons.delete,
                               size: 36,
                               color: Colors.red,
-                            )),
+                          ),
+                        ),
                       ],
                     ),
                   ),
