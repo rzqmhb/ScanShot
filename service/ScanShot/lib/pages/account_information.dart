@@ -69,7 +69,9 @@ class InformasiAkun extends StatelessWidget {
           children: [
             SizedBox(height: 30),
             listAkun(context,
-                hintText: 'Email', rightText: user.email!, route: '#'),
+                hintText: 'Email',
+                rightText: user.email!,
+                route: '/informasiAkun'),
             SizedBox(height: 10),
             listAkun(context,
                 hintText: 'Nama Pengguna',

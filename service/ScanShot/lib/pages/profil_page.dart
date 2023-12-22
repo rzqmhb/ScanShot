@@ -101,7 +101,7 @@ class ProfilePage extends StatelessWidget {
                 hintText: 'Penyimpanan Data',
                 icon: Icons.storage,
                 trailingIcon: Icons.arrow_right,
-                route: '/#'),
+                route: '/penyimpananData'),
             SizedBox(height: 40),
             listWithIcon(context,
                 hintText: 'Bantuan',
