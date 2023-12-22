@@ -40,7 +40,7 @@ class _GantiUsernameState extends State<GantiUsername> {
             color: Color.fromRGBO(255, 255, 255, 1),
           ),
         ),
-        title: Text('Ubah Email'),
+        title: Text('Ubah Nama Pengguna'),
         titleTextStyle:
             TextStyle(fontSize: 16, color: Color.fromRGBO(255, 255, 255, 1)),
         centerTitle: true,

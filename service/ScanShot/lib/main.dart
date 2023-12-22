@@ -3,6 +3,7 @@ import 'package:scanshot/pages/account_information.dart';
 import 'package:scanshot/pages/auth_page.dart';
 import 'package:scanshot/pages/change_password.dart';
 import 'package:scanshot/pages/change_username.dart';
+import 'package:scanshot/pages/data_storage.dart';
 import 'package:scanshot/pages/form_page.dart';
 import 'package:scanshot/pages/image_page.dart';
 import 'firebase_options.dart';
@@ -106,6 +107,12 @@ Future main() async {
         case '/gantiPassword':
           return PageTransition(
             child: GantiPassword(),
+            type: PageTransitionType.fade,
+            settings: settings,
+          );
+        case '/penyimpananData':
+          return PageTransition(
+            child: DataStoragePage(),
             type: PageTransitionType.fade,
             settings: settings,
           );
