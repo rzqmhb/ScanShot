@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserImage extends StatefulWidget {
   const UserImage({Key? key}) : super(key: key);
@@ -10,8 +14,10 @@ class UserImage extends StatefulWidget {
 }
 
 class _UserImageState extends State<UserImage> {
+  final storage = FirebaseStorage.instance;
+  final db = FirebaseFirestore.instance;
   User? user = FirebaseAuth.instance.currentUser;
-  String? imagePath;
+  String imagePath = '';
 
   @override
   void initState() {
@@ -27,7 +33,7 @@ class _UserImageState extends State<UserImage> {
         _updateProfilePicture();
       },
       child: CircleAvatar(
-        radius: 30,
+        radius: 50,
         backgroundImage: NetworkImage(imagePath!),
       ),
     );
@@ -65,7 +71,24 @@ class _UserImageState extends State<UserImage> {
         setState(() {
           imagePath = pickedImage.path!;
         });
+        uploadFile().then((value) {
+          Navigator.pushNamed(context, '/profile');
+        });
       }
     }
+  }
+
+  Future<void> uploadFile() async {
+    final ref = storage.ref().child('Profile-picture-user').child(user!.uid);
+    File imageFile = File(imagePath);
+    await ref.putFile(imageFile);
+    final url = await ref.getDownloadURL();
+    await user!.updatePhotoURL(url);
+    await user!.reload();
+    user = FirebaseAuth.instance.currentUser;
+
+    await db.collection('users').doc(user!.uid).update({
+      'photoURL': url,
+    });
   }
 }
