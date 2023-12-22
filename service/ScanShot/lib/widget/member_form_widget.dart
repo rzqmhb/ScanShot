@@ -3,14 +3,16 @@ import 'package:scanshot/models/anggota_keluarga.dart';
 
 class MemberFormWidget extends StatefulWidget {
   final List<AnggotaKeluarga> anggotaKeluarga;
+  final ScrollController scrollController;
 
-  const MemberFormWidget({super.key, required this.anggotaKeluarga});
+  const MemberFormWidget({super.key, required this.anggotaKeluarga, required this.scrollController});
 
   @override
   State<MemberFormWidget> createState() => _MemberFormWidgetState();
 }
 
 class _MemberFormWidgetState extends State<MemberFormWidget> {
+  late ScrollController scrollController;
   late List<AnggotaKeluarga> anggota;
   late int len;
 
@@ -56,6 +58,7 @@ class _MemberFormWidgetState extends State<MemberFormWidget> {
   @override
   void initState() {
     super.initState();
+    scrollController = widget.scrollController;
     anggota = widget.anggotaKeluarga;
     len = anggota.length;
 
@@ -97,6 +100,7 @@ class _MemberFormWidgetState extends State<MemberFormWidget> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      controller: scrollController,
         itemCount: anggota.length,
         shrinkWrap: true,
         itemBuilder: (context, index) {
